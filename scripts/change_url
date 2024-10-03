@@ -2,105 +2,29 @@
 ### App file generated with YoloGen, the Yunohost app generator, version .
 
 #=================================================
-# GENERIC START
+# GENERIC STARTING
 #=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
+
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# INSTALL DEPENDENCIES
+# MODIFY URL IN NGINX CONF
 #=================================================
+ynh_script_progression --message="Updating NGINX web server configuration..."
 
-#=================================================
-# APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
-#=================================================
-ynh_script_progression --message="Setting up source files..."
-
-ynh_setup_source --dest_dir="$install_dir"
-
-ynh_setup_source --dest_dir="$install_dir/lib/pkp" --source_id="pkp"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/customBlockManager" --source_id="customBlockManager"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/staticPages" --source_id="staticPages"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/tinymce" --source_id="tinymce"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/pdfJsViewer" --source_id="pdfJsViewer"
-ynh_setup_source --dest_dir="$install_dir/docs/manual" --source_id="manual"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/lensGalley" --source_id="lensGalley"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/googleAnalytics" --source_id="googleAnalytics"
-ynh_setup_source --dest_dir="$install_dir/plugins/blocks/makeSubmission" --source_id="makeSubmission"
-ynh_setup_source --dest_dir="$install_dir/plugins/reports/reviewReport" --source_id="reviewReport"
-ynh_setup_source --dest_dir="$install_dir/lib/ui-library" --source_id="ui-library"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/citationStyleLanguage" --source_id="citationStyleLanguage"
-ynh_setup_source --dest_dir="$install_dir/plugins/reports/counter/classes/COUNTER" --source_id="COUNTER"
-ynh_setup_source --dest_dir="$install_dir/plugins/blocks/browse" --source_id="browse"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/googleScholar" --source_id="googleScholar"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/crossref" --source_id="crossref"
-ynh_setup_source --dest_dir="$install_dir/plugins/generic/webFeed" --source_id="webFeed"
-
-chown -R $app:www-data "$install_dir"
+ynh_change_url_nginx_config
 
 #=================================================
-# SYSTEM CONFIGURATION
+# SPECIFIC MODIFICATIONS
 #=================================================
-ynh_script_progression --message="Adding system configurations related to $app..."
-
-# Create a dedicated PHP-FPM config
-# conf/extra_php-fpm.conf will be appended to the auto-generated config, which will go in /etc/php/X.Y/fpm/pool.d/
-ynh_add_fpm_config
-
-# Create a dedicated NGINX config using the conf/nginx.conf template
-ynh_add_nginx_config
-
-# Use logrotate to manage application logfile(s)
-ynh_use_logrotate
-
-# Create a dedicated Fail2Ban config
-ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
-
-salt=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
-api_key_secret=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
-app_key=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
-
-ynh_app_setting_set --key=salt --value=$salt
-ynh_app_setting_set --key=api_key_secret --value=$api_key_secret
-ynh_app_setting_set --key=app_key --value=$app_key
-
-admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
-
-ynh_app_setting_set --key=admin --value=$admin
-ynh_app_setting_set --key=password --value=$password
-
-ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_app_setting_set --app=$app --key=db_user --value=$db_user
-ynh_app_setting_set --app=$app --key=db_pwd --value=$db_pwd
-
-timezone="$(cat /etc/timezone)"
-ynh_app_setting_set --key=timezone --value=$timezone
-
+# ...
 #=================================================
-# APP INITIAL CONFIGURATION
-#=================================================
-# ADD A CONFIGURATION
-#=================================================
-ynh_script_progression --message="Adding app's configuration file..."
-
-ynh_add_config --template="config.inc.php" --destination="$install_dir/config.inc.php"
-
-# FIXME: this should be handled by the core in the future
-# You may need to use chmod 600 instead of 400,
-# for example if the app is expected to be able to modify its own config
-chmod 400 "$install_dir/config.inc.php"
-chown $app:www-data "$install_dir/config.inc.php"
-
-#=================================================
-# FINALIZE APP INSTALL WITH CURL
-#=================================================
-
 
 #=================================================
 # END OF SCRIPT
 #=================================================
-ynh_script_progression --message="Installation of $app completed" --last
+
+ynh_script_progression --message="Change of URL completed for $app" --last
