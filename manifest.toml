@@ -2,135 +2,160 @@
 
 packaging_format = 2
 
-id = "example"
-name = "Example app"
-description.en = "Explain in *a few (10~15) words* the purpose of the app or what it actually does (it is meant to give a rough idea to users browsing a catalog of 100+ apps)"
-description.fr = "Expliquez en *quelques* (10~15) mots l'utilité de l'app ou ce qu'elle fait (l'objectif est de donner une idée grossière pour des utilisateurs qui naviguent dans un catalogue de 100+ apps)"
+id = "ojs"
+name = "OJS"
 
-version = "1.0~ynh1"
+description.en = "Open Journal Systems is open source software to manage scholarly journals."
+description.fr = "Open Journal Systems est un logiciel open source pour gérer des revues scientifiques"
 
-maintainers = ["johndoe"]
+version = "3_4_0-7~ynh1"
+
+maintainers = ["DeMiro5001"]
 
 [upstream]
-# NB: Only the "license" key is mandatory. Remove entries for which there's no relevant data
-license = "free" # you can see the available licenses identifiers list here: https://spdx.org/licenses/
-website = "https://example.com"
-demo = "https://demo.example.com"
-admindoc = "https://yunohost.org/packaging_apps"
-userdoc = "https://yunohost.org/apps"
-code = "https://some.forge.com/example/example"
-# FIXME: optional but recommended if relevant, this is meant to contain the Common Platform Enumeration, which is
-# sort of a standard id for applications defined by the NIST. In particular, YunoHost may use this is in the future
-# to easily track CVE (=security reports) related to apps. The CPE may be obtained by searching here:
-# https://nvd.nist.gov/products/cpe/search.
-# For example, for Nextcloud, the CPE is 'cpe:2.3:a:nextcloud:nextcloud' (no need to include the version number)
-cpe = "???"
+license = "GPL-3.0-only"
+website = "https://pkp.sfu.ca/software/ojs"
 
-# FIXME: optional but recommended (or remove if irrelevant / not applicable).
-# This is meant to be an URL where people can financially support this app, especially when its development is based
-# on volunteers and/or financed by its community. YunoHost may later advertise it in the webadmin.
-fund = "???"
+admindoc = "https://docs.pkp.sfu.ca/admin-guide/"
+userdoc = "https://docs.pkp.sfu.ca/"
+code = "https://github.com/pkp/ojs"
 
 [integration]
-yunohost = ">= 11.2.30"
-helpers_version = "2.1"
-# FIXME: can be replaced by a list of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386"]
-architectures = "all"
+yunohost = '>= 11.2'
+architectures = "all" # TODO : handle the "all" option (no ["all"])
 multi_instance = true
-
-# FIXME: replace with true, false, or "not_relevant".
-# Not to confuse with the "sso" key: the "ldap" key corresponds to wether or not a user *can* login on the app using
-# its YunoHost credentials.
-ldap = "?"
-
-# FIXME: replace with true, false, or "not_relevant".
-# Not to confuse with the "ldap" key: the "sso" key corresponds to wether or not a user is *automatically logged-in*
-# on the app when logged-in on the YunoHost portal.
-sso = "?"
-
-# FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G...
-disk = "50M"
+ldap = "not_relevant" # TODO : fixme, use actual booleans + handle the "not_relevant" value
+sso = "not_relevant"
+# FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G... You may have have a look at CI results
+disk = "150M"
 ram.build = "50M"
 ram.runtime = "50M"
 
 [install]
+
     [install.domain]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "domain"
 
     [install.path]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "path"
-    default = "/example"
+    default = "/ojs"
 
     [install.init_main_permission]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # This won't be saved as setting and will instead be used to initialize the SSOwat permission
     type = "group"
     default = "visitors"
 
-    [install.language]
-    ask.en = "Choose the application language"
-    ask.fr = "Choisissez la langue de l'application"
-    type = "select"
-    choices = ["fr", "en"]
-    default = "fr"
-
-    [install.admin]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "user"
-
-    [install.password]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # Note that user-provided passwords questions are not automatically saved as setting
-    help.en = "Use the help field to add an information for the admin about this question."
-    help.fr = "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
-    type = "password"
-
 [resources]
-    # See the packaging documentation for the full set
-    # of explanation regarding the behavior and properties for each of those
 
     [resources.sources]
 
-    [resources.sources.main]
-    # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
-    #    ynh_setup_source --dest_dir="$install_dir"
-    # You can also define other assets than "main" and add --source_id="foobar" in the previous command
-    url = "https://github.com/foo/bar/archive/refs/tags/v1.2.3.tar.gz"
-    sha256 = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+        [resources.sources.main]
+        # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
+        #    ynh_setup_source --dest_dir="$install_dir"
+        # You can also define other assets than "main" and add --source_id="foobar" in the previous command
+        url = "https://github.com/pkp/ojs/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "f0e22eec0f52ca720492b817dc596601e68939bd7e26a2da83348fca5f1daf04"
 
-    # These infos are used by https://github.com/YunoHost/apps/blob/master/tools/autoupdate_app_sources/autoupdate_app_sources.py
-    # to auto-update the previous asset urls and sha256sum + manifest version
-    # assuming the upstream's code repo is on github and relies on tags or releases
-    # See the 'sources' resource documentation for more details
+        # These infos are used by https://github.com/YunoHost/apps/blob/master/tools/autoupdate_app_sources/autoupdate_app_sources.py
+        # to auto-update the previous asset urls and sha256sum + manifest version
+        # assuming the upstream's code repo is on github and relies on tags or releases
+        # See the 'sources' resource documentation for more details
 
-    # autoupdate.strategy = "latest_github_tag"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.pkp]
+        url = "https://github.com/pkp/pkp-lib/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "0b95485d91d7a0e1c3cf85b76a57d681a7f35ffc2c11ceb0a922ae05efe5e3b0"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.customBlockManager]
+        url = "https://github.com/pkp/customBlockManager/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "c4f270d9737698da79d28f601f8c93e14d8c667feeba6ba60d40dbbd620d96d1"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.staticPages]
+        url = "https://github.com/pkp/staticPages/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "b4d0371233f20bf619ff83e5aff050ce387bd24c89aaec23a438fd5e9661015e"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.tinymce]
+        url = "https://github.com/pkp/tinymce/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "90e22e4b50e240287a767b6d9e62b959f423e3acfeba60cee72ad2a7ba6d72d3"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.pdfJsViewer]
+        url = "https://github.com/pkp/pdfJsViewer/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "2efbfeb490b5c7ff696df99c423ef44e5e02468114f0f5bd61764cf88eb4f390"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.manual]
+        url = "https://github.com/pkp/ojs-user-guide/archive/refs/tags/3_4_0rc1.tar.gz"
+        sha256 = "49c8fafe8483b28afe0cea54f8910f05b412d4e4467c48125daf5df5aa7e5f7f"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.lensGalley]
+        url = "https://github.com/asmecher/lensGalley/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "f1d29ccdd03a21a99262837af8f05981c22086a74714faacc63071320957e2b2"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.googleAnalytics]
+        url = "https://github.com/pkp/googleAnalytics/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "a2ee03b252d8a407db235fb7255305c7d3088e95e8eea2cfae8c85264d7670e5"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.makeSubmission]
+        url = "https://github.com/pkp/makeSubmission/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "bbffaa203d1633e840e55ea8dc29c660b4365a8312d7ccb51b3ac472a6a0852e"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.reviewReport]
+        url = "https://github.com/pkp/reviewReport/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "f80f70046db55076132531723a45c1a12e2bd3e0008ff9a3924bad7e5bc16bc4"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.ui-library]
+        url = "https://github.com/pkp/ui-library/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "4208baa4df7bcc0c38e4a14d17cd27f2ea1bc852cd07348d181f52c44d93b743"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.citationStyleLanguage]
+        url = "https://github.com/pkp/citationStyleLanguage/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "03f4e7f15b56f5e83554a78eb73d5fc6cca3b5b0eb3ebdf33125edf36e78d535"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.COUNTER]
+        url = "https://github.com/pkp/COUNTER/archive/refs/heads/main.zip"
+        sha256 = "a69d7d8e7c1eb12e92db32402cb67b321776000899d925bb22c0d7dbcb6ac3b8"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.browse]
+        url = "https://github.com/pkp/browse/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "a6fcc04acb55b35ef631c319a18b2e00c3e736a630d03218f3415c05fef44ddb"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.googleScholar]
+        url = "https://github.com/pkp/googleScholar/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "117b502c37b44b709cce17f64eb048cd3d8af47f6fa21b0216734c9171e5dad3"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.crossref]
+        url = "https://github.com/pkp/crossref-ojs/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "a7fd22be4dc2e484fc3922ab46acccf9b9c554e058ba1db4731e7f4f4fc35fdb"
+        autoupdate.strategy = "latest_github_tag"
+
+        [resources.sources.webFeed]
+        url = "https://github.com/pkp/webFeed/archive/refs/tags/3_4_0-7.tar.gz"
+        sha256 = "c4a79c10cd79b8329dd20a3d10c595c4f38efdaad3f3e3e195db89145826e70a"
+        autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
-    # This will provision/deprovision a unix system user
+    allow_email = true
 
     [resources.install_dir]
-    # This will create/remove the install dir as /var/www/$app
-    # and store the corresponding setting $install_dir
 
     [resources.data_dir]
-    # This will create/remove the data dir as /home/yunohost.app/$app
-    # and store the corresponding setting $data_dir
 
     [resources.permissions]
-    # This will configure SSOwat permission for $domain/$path/
-    # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
     main.url = "/"
 
-    [resources.ports]
-    # This will pick a random port for reverse-proxying and store it as the $port setting
-
-    [resources.apt]
-    # This will automatically install/uninstall the following apt packages
-    # and implicitly define the $phpversion setting as 8.0 (if phpX.Y-foobar dependencies are listed)
-    packages = "mariadb-server, deb1, deb2, php8.0-foo, php8.0-bar"
-
     [resources.database]
-    # This will automatically provision/deprovison a MySQL DB and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
     type = "mysql"
