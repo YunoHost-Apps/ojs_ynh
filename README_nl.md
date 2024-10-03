@@ -16,7 +16,7 @@ Hij mag NIET handmatig aangepast worden.
 
 ## Overzicht
 
-This is a dummy description of this app features
+Open Journal Systems is open source software to manage scholarly journals.
 
 
 **Geleverde versie:** 3_4_0-7~ynh1

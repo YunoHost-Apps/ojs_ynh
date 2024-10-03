@@ -16,7 +16,7 @@
 
 ## 概况
 
-This is a dummy description of this app features
+Open Journal Systems is open source software to manage scholarly journals.
 
 
 **分发版本：** 3_4_0-7~ynh1
