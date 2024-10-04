@@ -1,55 +1,32 @@
 #!/bin/bash
-### App file generated with YoloGen, the Yunohost app generator, version .
-
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
 
 source _common.sh
 source /usr/share/yunohost/helpers
 
-upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-
-#=================================================
-# "REBUILD" THE APP (DEPLOY NEW SOURCES, RERUN NPM BUILD...)
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression --message="Upgrading source files..."
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
-then
-	ynh_script_progression --message="Upgrading source files..."
+ynh_setup_source --dest_dir="$install_dir" --full_replace=1  --keep="config.inc.php"
 
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir" --full_replace=1  --keep="config.inc.php"
-
-  ynh_setup_source --dest_dir="$install_dir/lib/pkp" --source_id="pkp"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/customBlockManager" --source_id="customBlockManager"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/staticPages" --source_id="staticPages"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/tinymce" --source_id="tinymce"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/pdfJsViewer" --source_id="pdfJsViewer"
-  ynh_setup_source --dest_dir="$install_dir/docs/manual" --source_id="manual"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/lensGalley" --source_id="lensGalley"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/googleAnalytics" --source_id="googleAnalytics"
-  ynh_setup_source --dest_dir="$install_dir/plugins/blocks/makeSubmission" --source_id="makeSubmission"
-  ynh_setup_source --dest_dir="$install_dir/plugins/reports/reviewReport" --source_id="reviewReport"
-  ynh_setup_source --dest_dir="$install_dir/lib/ui-library" --source_id="ui-library"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/citationStyleLanguage" --source_id="citationStyleLanguage"
-  ynh_setup_source --dest_dir="$install_dir/plugins/reports/counter/classes/COUNTER" --source_id="COUNTER"
-  ynh_setup_source --dest_dir="$install_dir/plugins/blocks/browse" --source_id="browse"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/googleScholar" --source_id="googleScholar"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/crossref" --source_id="crossref"
-  ynh_setup_source --dest_dir="$install_dir/plugins/generic/webFeed" --source_id="webFeed"
-
-fi
+ynh_setup_source --dest_dir="$install_dir/lib/pkp" --source_id="pkp"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/customBlockManager" --source_id="customBlockManager"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/staticPages" --source_id="staticPages"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/tinymce" --source_id="tinymce"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/pdfJsViewer" --source_id="pdfJsViewer"
+ynh_setup_source --dest_dir="$install_dir/docs/manual" --source_id="manual"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/lensGalley" --source_id="lensGalley"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/googleAnalytics" --source_id="googleAnalytics"
+ynh_setup_source --dest_dir="$install_dir/plugins/blocks/makeSubmission" --source_id="makeSubmission"
+ynh_setup_source --dest_dir="$install_dir/plugins/reports/reviewReport" --source_id="reviewReport"
+ynh_setup_source --dest_dir="$install_dir/lib/ui-library" --source_id="ui-library"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/citationStyleLanguage" --source_id="citationStyleLanguage"
+ynh_setup_source --dest_dir="$install_dir/plugins/reports/counter/classes/COUNTER" --source_id="COUNTER"
+ynh_setup_source --dest_dir="$install_dir/plugins/blocks/browse" --source_id="browse"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/googleScholar" --source_id="googleScholar"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/crossref" --source_id="crossref"
+ynh_setup_source --dest_dir="$install_dir/plugins/generic/webFeed" --source_id="webFeed"
 
 chown -R $app:www-data "$install_dir"
 
@@ -64,25 +41,7 @@ ynh_add_nginx_config
 
 ynh_use_logrotate --non-append
 
-# Create a dedicated Fail2Ban config
 ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
-
-# cron_path="/etc/cron.d/$app"
-# ynh_add_config --template="../conf/task.cron" --destination="$cron_path"
-# chown root: "$cron_path"
-# chmod 644 "$cron_path"
-
-#=================================================
-# RECONFIGURE THE APP (UPDATE CONF, APPLY MIGRATIONS...)
-#=================================================
-# UPDATE A CONFIG FILE
-#=================================================
-# ynh_script_progression --message="Updating a configuration file..."
-
-# ynh_add_config --template="config.inc.php" --destination="$install_dir/config.inc.php"
-
-# chmod 400 "$install_dir/config.inc.php"
-# chown $app:$app "$install_dir/config.inc.php"
 
 #=================================================
 # END OF SCRIPT

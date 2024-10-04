@@ -1,13 +1,5 @@
 #!/bin/bash
-#### App file generated with YoloGen, the YunoHost app generator, version .
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
-# Keep this path for calling _common.sh inside the execution's context of backup and restore scripts
 source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
@@ -20,23 +12,19 @@ ynh_print_info --message="Declaring files to be backed up..."
 # BACKUP THE DATA DIR
 #=================================================
 
-ynh_backup --src_path="$data_dir" # --is_big
+ynh_backup --src_path="$data_dir"
 
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
 
-# Backup the nginx configuration
 ynh_backup --src_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
-# Backup the PHP-FPM configuration
 ynh_backup --src_path="/etc/php/$phpversion/fpm/pool.d/$app.conf"
 
-# Backup the Fail2Ban config
 ynh_backup --src_path="/etc/fail2ban/jail.d/$app.conf"
 ynh_backup --src_path="/etc/fail2ban/filter.d/$app.conf"
 
-# Backup the logrotate configuration
 ynh_backup --src_path="/etc/logrotate.d/$app"
 
 #=================================================
@@ -44,14 +32,6 @@ ynh_backup --src_path="/etc/logrotate.d/$app"
 #=================================================
 
 ynh_backup --src_path="/var/log/$app/" # TODO : add an option to specify log file
-
-#=================================================
-# BACKUP THE DATABASE
-#=================================================
-ynh_print_info --message="Backing up the mysql database..."
-
-### (However, things like MySQL dumps *do* take some time to run, though the
-### copy of the generated dump to the archive still happens later)
 
 #=================================================
 # END OF SCRIPT

@@ -1,11 +1,5 @@
 #!/bin/bash
-### App file generated with YoloGen, the Yunohost app generator, version .
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -23,8 +17,6 @@ ynh_remove_fpm_config
 ynh_remove_logrotate
 
 ynh_remove_fail2ban_config
-
-# Remove other various files specific to the app... such as :
 
 #=================================================
 # END OF SCRIPT

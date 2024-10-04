@@ -5,7 +5,7 @@ packaging_format = 2
 id = "ojs"
 name = "OJS"
 
-description.en = "Open Journal Systems is open source software to manage scholarly journals."
+description.en = "Open Journal Systems is open source software to manage scholarly journals"
 description.fr = "Open Journal Systems est un logiciel open source pour gérer des revues scientifiques"
 
 version = "3_4_0-7~ynh1"
@@ -22,11 +22,11 @@ code = "https://github.com/pkp/ojs"
 
 [integration]
 yunohost = '>= 11.2'
-architectures = "all" # TODO : handle the "all" option (no ["all"])
+architectures = "all"
 multi_instance = true
-ldap = "not_relevant" # TODO : fixme, use actual booleans + handle the "not_relevant" value
+ldap = "not_relevant"
 sso = "not_relevant"
-# FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G... You may have have a look at CI results
+
 disk = "150M"
 ram.build = "50M"
 ram.runtime = "50M"
@@ -49,16 +49,8 @@ ram.runtime = "50M"
     [resources.sources]
 
         [resources.sources.main]
-        # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
-        #    ynh_setup_source --dest_dir="$install_dir"
-        # You can also define other assets than "main" and add --source_id="foobar" in the previous command
         url = "https://github.com/pkp/ojs/archive/refs/tags/3_4_0-7.tar.gz"
         sha256 = "f0e22eec0f52ca720492b817dc596601e68939bd7e26a2da83348fca5f1daf04"
-
-        # These infos are used by https://github.com/YunoHost/apps/blob/master/tools/autoupdate_app_sources/autoupdate_app_sources.py
-        # to auto-update the previous asset urls and sha256sum + manifest version
-        # assuming the upstream's code repo is on github and relies on tags or releases
-        # See the 'sources' resource documentation for more details
 
         autoupdate.strategy = "latest_github_tag"
 

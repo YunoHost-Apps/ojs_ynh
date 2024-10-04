@@ -1,20 +1,8 @@
 #!/bin/bash
-### App file generated with YoloGen, the Yunohost app generator, version .
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
 source _common.sh
 source /usr/share/yunohost/helpers
 
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-
-#=================================================
-# APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
@@ -47,17 +35,12 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 ynh_script_progression --message="Adding system configurations related to $app..."
 
-# Create a dedicated PHP-FPM config
-# conf/extra_php-fpm.conf will be appended to the auto-generated config, which will go in /etc/php/X.Y/fpm/pool.d/
 ynh_add_fpm_config
 
-# Create a dedicated NGINX config using the conf/nginx.conf template
 ynh_add_nginx_config
 
-# Use logrotate to manage application logfile(s)
 ynh_use_logrotate
 
-# Create a dedicated Fail2Ban config
 ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
 
 salt=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
@@ -81,26 +64,17 @@ timezone="$(cat /etc/timezone)"
 ynh_app_setting_set --key=timezone --value=$timezone
 
 #=================================================
-# APP INITIAL CONFIGURATION
-#=================================================
 # ADD A CONFIGURATION
 #=================================================
 ynh_script_progression --message="Adding app's configuration file..."
 
 ynh_add_config --template="config.inc.php" --destination="$install_dir/config.inc.php"
 
-# FIXME: this should be handled by the core in the future
-# You may need to use chmod 600 instead of 400,
-# for example if the app is expected to be able to modify its own config
 chmod 400 "$install_dir/config.inc.php"
 chown $app:www-data "$install_dir/config.inc.php"
 
 #=================================================
-# FINALIZE APP INSTALL WITH CURL
-#=================================================
-
-
-#=================================================
 # END OF SCRIPT
 #=================================================
+
 ynh_script_progression --message="Installation of $app completed" --last
