@@ -6,9 +6,9 @@ source /usr/share/yunohost/helpers
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Upgrading source files..."
+ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace=1  --keep="config.inc.php"
+ynh_setup_source --dest_dir="$install_dir" --full_replace  --keep="config.inc.php"
 
 ynh_setup_source --dest_dir="$install_dir/lib/pkp" --source_id="pkp"
 ynh_setup_source --dest_dir="$install_dir/plugins/generic/customBlockManager" --source_id="customBlockManager"
@@ -28,23 +28,22 @@ ynh_setup_source --dest_dir="$install_dir/plugins/generic/googleScholar" --sourc
 ynh_setup_source --dest_dir="$install_dir/plugins/generic/crossref" --source_id="crossref"
 ynh_setup_source --dest_dir="$install_dir/plugins/generic/webFeed" --source_id="webFeed"
 
-chown -R $app:www-data "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..."
+ynh_script_progression "Upgrading system configurations related to $app..."
 
-ynh_add_fpm_config
+ynh_config_add_phpfpm
 
-ynh_add_nginx_config
+ynh_config_add_nginx
 
-ynh_use_logrotate --non-append
+ynh_config_add_logrotate
 
-ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
+ynh_config_add_fail2ban --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"
