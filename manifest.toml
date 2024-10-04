@@ -63,11 +63,11 @@ ram.runtime = "50M"
 
     [resources.sources]
 
-        [resources.sources.main]
-        url = "https://pkp.sfu.ca/ojs/download/ojs-3.4.0-7.tar.gz"
-        sha256 = "f0e22eec0f52ca720492b817dc596601e68939bd7e26a2da83348fca5f1daf04"
+    [resources.sources.main]
+    url = "https://pkp.sfu.ca/ojs/download/ojs-3.4.0-7.tar.gz"
+    sha256 = "f330fdbbed8900e4510484dc1a66085f3da79ba96cbe38894d0b238b3e80733a"
 
-        autoupdate.strategy = "latest_github_tag"
+    #autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
     allow_email = true
@@ -79,7 +79,7 @@ ram.runtime = "50M"
 
     [resources.permissions]
     main.url = "/"
-    
+
     [resources.ports]
 
     [resources.apt]
