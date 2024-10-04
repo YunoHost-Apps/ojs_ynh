@@ -1,0 +1,12 @@
+[Unit]
+Description=OJS
+After=network.target
+
+[Service]
+Type=simple
+User=__APP__
+Group=__APP__
+WorkingDirectory=__INSTALL_DIR__/
+ExecStart=/usr/bin/php__PHP_VERSION__ -S 127.0.0.1:__PORT__
+#StandardOutput=append:/var/log/__APP__/__APP__.log
+#StandardError=inherit
