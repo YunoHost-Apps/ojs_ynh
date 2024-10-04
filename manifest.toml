@@ -5,8 +5,8 @@ packaging_format = 2
 id = "ojs"
 name = "OJS"
 
-description.en = "Open Journal Systems is open source software to manage scholarly journals"
-description.fr = "Open Journal Systems est un logiciel open source pour gérer des revues scientifiques"
+description.en = "Software to manage scholarly journals"
+description.fr = "Logiciel pour gérer des revues scientifiques"
 
 version = "3.4.0-7~ynh1"
 
@@ -55,8 +55,6 @@ ram.runtime = "50M"
     type = "user"
 
     [install.password]
-    help.en = "Use the help field to add an information for the admin about this question."
-    help.fr = "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
     type = "password"
 
 [resources]

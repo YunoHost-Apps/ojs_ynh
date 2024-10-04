@@ -13,9 +13,6 @@ ynh_app_setting_set --key=app_key --value=$app_key
 
 admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
 
-#ynh_app_setting_set --key=admin --value=$admin
-#ynh_app_setting_set --key=password --value=$password
-
 timezone="$(cat /etc/timezone)"
 ynh_app_setting_set --key=timezone --value=$timezone
 
@@ -35,10 +32,6 @@ ynh_config_add_phpfpm
 
 ynh_config_add_nginx
 
-#ynh_config_add_systemd
-
-#yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
-
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
@@ -50,13 +43,6 @@ ynh_script_progression "Adding app's configuration file..."
 #chown "$app:$app" "$install_dir/config.inc.php"
 
 ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
-
-#=================================================
-# START SYSTEMD SERVICE
-#=================================================
-#ynh_script_progression "Starting $app's systemd service..."
-
-#ynh_systemctl --service="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
