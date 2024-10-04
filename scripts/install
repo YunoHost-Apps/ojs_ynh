@@ -35,9 +35,9 @@ ynh_config_add_phpfpm
 
 ynh_config_add_nginx
 
-ynh_config_add_systemd
+#ynh_config_add_systemd
 
-yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
+#yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
 
 #=================================================
 # ADD A CONFIGURATION
@@ -54,9 +54,9 @@ ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression "Starting $app's systemd service..."
+#ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start"
+#ynh_systemctl --service="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
