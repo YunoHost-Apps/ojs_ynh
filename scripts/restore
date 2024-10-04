@@ -33,6 +33,13 @@ ynh_restore "/etc/php/$php_version/fpm/pool.d/$app.conf"
 
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
+ynh_restore "/etc/systemd/system/$app.service"
+systemctl enable "$app.service" --quiet
+
+yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
+
+ynh_restore "/etc/cron.d/$app"
+
 #=================================================
 # RELOAD NGINX AND PHP-FPM OR THE APP SERVICE
 #=================================================

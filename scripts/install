@@ -3,9 +3,9 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
-salt=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
-api_key_secret=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
-app_key=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
+salt=$(ynh_string_random --length=32)
+api_key_secret=$(ynh_string_random --length=32)
+app_key=$(ynh_string_random --length=32)
 
 ynh_app_setting_set --key=salt --value=$salt
 ynh_app_setting_set --key=api_key_secret --value=$api_key_secret
@@ -45,6 +45,7 @@ yunohost service add "$app" --description="A short description of the app" --log
 ynh_script_progression "Adding app's configuration file..."
 
 ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
+ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
 #=================================================
 # START SYSTEMD SERVICE
