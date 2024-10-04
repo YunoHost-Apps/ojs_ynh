@@ -44,7 +44,7 @@ yunohost service add "$app" --description="A short description of the app" --log
 #=================================================
 ynh_script_progression "Adding app's configuration file..."
 
-ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
+#ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
 ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
 #=================================================
