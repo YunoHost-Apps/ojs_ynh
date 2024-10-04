@@ -33,7 +33,7 @@ app_key = __APP_KEY__
 installed = On
 
 ; The canonical URL to the OJS installation (excluding the trailing slash)
-base_url = "__DOMAIN__/__PATH__"
+base_url = "__DOMAIN____PATH__"
 
 ; Enable strict mode. This will more aggressively cause errors/warnings when
 ; deprecated behaviour exists in the codebase.
@@ -202,7 +202,7 @@ web_cache_hours = 1
 [i18n]
 
 ; Default locale
-locale = en
+locale = __LANGUAGE__
 
 ; Database connection character set
 connection_charset = utf8
@@ -318,14 +318,14 @@ sendmail_path = "/usr/sbin/sendmail -bs"
 ; smtp = On
 
 ; SMTP server settings
-; smtp_server = mail.example.com
+; smtp_server = localhost
 ; smtp_port = 25
 
 ; Enable SMTP authentication
 ; Supported smtp_auth: ssl, tls (see PHPMailer SMTPSecure)
 ; smtp_auth = ssl
-; smtp_username = username
-; smtp_password = password
+; smtp_username = __APP__
+; smtp_password = __MAIL_PWD__
 
 ; Enable suppressing SSL/TLS peer verification by SMTP transports
 ; Note: this is not recommended for security reasons
