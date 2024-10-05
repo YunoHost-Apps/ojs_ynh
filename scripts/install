@@ -11,10 +11,10 @@ ynh_app_setting_set --key=salt --value=$salt
 ynh_app_setting_set --key=api_key_secret --value=$api_key_secret
 ynh_app_setting_set --key=app_key --value=$app_key
 
-admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
+#admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
 
-ynh_app_setting_set --key=admin --value=$admin
-ynh_app_setting_set --key=password --value=$password
+#ynh_app_setting_set --key=admin --value=$admin
+#ynh_app_setting_set --key=password --value=$password
 
 ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 ynh_app_setting_set --app=$app --key=db_user --value=$db_user
