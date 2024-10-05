@@ -19,7 +19,7 @@ Il NE doit PAS être modifié à la main.
 Ceci est une fausse description des fonctionalités de l'app
 
 
-**Version incluse :** 3_4_0-7~ynh1
+**Version incluse :** 3.4.0-7~ynh1
 
 ## Captures d’écran
 
