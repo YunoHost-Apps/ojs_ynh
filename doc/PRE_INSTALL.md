@@ -1,1 +1,1 @@
-After the app is deployed head to https://DOMAIN____PATH to complete the installation.
+After the app is deployed head to its url to complete the installation.
