@@ -3,6 +3,26 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
+salt=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
+api_key_secret=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
+app_key=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
+
+ynh_app_setting_set --key=salt --value=$salt
+ynh_app_setting_set --key=api_key_secret --value=$api_key_secret
+ynh_app_setting_set --key=app_key --value=$app_key
+
+admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
+
+ynh_app_setting_set --key=admin --value=$admin
+ynh_app_setting_set --key=password --value=$password
+
+ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+ynh_app_setting_set --app=$app --key=db_user --value=$db_user
+ynh_app_setting_set --app=$app --key=db_pwd --value=$db_pwd
+
+timezone="$(cat /etc/timezone)"
+ynh_app_setting_set --key=timezone --value=$timezone
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
@@ -35,33 +55,13 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 ynh_script_progression --message="Adding system configurations related to $app..."
 
-ynh_add_fpm_config
+ynh_config_add_phpfpm
 
-ynh_add_nginx_config
+ynh_config_add_nginx
 
-ynh_use_logrotate
+#ynh_use_logrotate
 
-ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
-
-salt=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
-api_key_secret=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
-app_key=$(ynh_string_random --length=32 | base64 -w 0 | rev | cut -b 2- | rev | tr -d '\n+/')
-
-ynh_app_setting_set --key=salt --value=$salt
-ynh_app_setting_set --key=api_key_secret --value=$api_key_secret
-ynh_app_setting_set --key=app_key --value=$app_key
-
-admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
-
-ynh_app_setting_set --key=admin --value=$admin
-ynh_app_setting_set --key=password --value=$password
-
-ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_app_setting_set --app=$app --key=db_user --value=$db_user
-ynh_app_setting_set --app=$app --key=db_pwd --value=$db_pwd
-
-timezone="$(cat /etc/timezone)"
-ynh_app_setting_set --key=timezone --value=$timezone
+#ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
 
 #=================================================
 # ADD A CONFIGURATION
