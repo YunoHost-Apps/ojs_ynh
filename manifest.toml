@@ -21,11 +21,14 @@ userdoc = "https://docs.pkp.sfu.ca/"
 code = "https://github.com/pkp/ojs"
 
 [integration]
-yunohost = '>= 11.2'
+yunohost = ">= 11.2.29"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
-ldap = "not_relevant"
-sso = "not_relevant"
+
+ldap = false
+
+sso = false
 
 disk = "150M"
 ram.build = "50M"
