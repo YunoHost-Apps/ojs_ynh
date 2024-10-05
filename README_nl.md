@@ -20,11 +20,6 @@ Open Journal Systems is open source software to manage scholarly journals.
 
 
 **Geleverde versie:** 3_4_0-7~ynh1
-
-## Schermafdrukken
-
-![Schermafdrukken van OJS](./doc/screenshots/example.jpg)
-
 ## Documentatie en bronnen
 
 - Officiele website van de app: <https://pkp.sfu.ca/software/ojs>
