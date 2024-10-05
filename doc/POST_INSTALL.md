@@ -1,3 +1,7 @@
-username = __DB_USER__
-password = "__DB_PWD__"
-name = __DB_NAME__
+**Database**
+Username = __DB_USER__
+Password = "__DB_PWD__"
+Name = __DB_NAME__
+
+**Data directory**
+__DATA_DIR__
