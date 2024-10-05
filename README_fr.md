@@ -20,6 +20,11 @@ Ceci est une fausse description des fonctionalités de l'app
 
 
 **Version incluse :** 3_4_0-7~ynh1
+
+## Captures d’écran
+
+![Capture d’écran de OJS](./doc/screenshots/Open_Journal_Systems_interface_screenshot.png)
+
 ## Documentations et ressources
 
 - Site officiel de l’app : <https://pkp.sfu.ca/software/ojs>
