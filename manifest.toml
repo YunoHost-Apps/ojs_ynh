@@ -8,7 +8,7 @@ name = "OJS"
 description.en = "Open Journal Systems is open source software to manage scholarly journals"
 description.fr = "Open Journal Systems est un logiciel open source pour gérer des revues scientifiques"
 
-version = "3_4_0-7~ynh1"
+version = "3.4.0-7~ynh1"
 
 maintainers = ["DeMiro5001"]
 
