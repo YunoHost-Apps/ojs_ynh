@@ -23,6 +23,7 @@ Open Journal Systems is open source software to manage scholarly journals.
 
 ## Tangkapan Layar
 
+![Tangkapan Layar pada OJS](./doc/screenshots/Open_Journal_Systems_interface_screenshot.png)
 ![Tangkapan Layar pada OJS](./doc/screenshots/screenshot.png)
 
 ## Dokumentasi dan sumber daya

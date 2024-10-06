@@ -23,6 +23,7 @@ Ceci est une fausse description des fonctionalités de l'app
 
 ## Captures d’écran
 
+![Capture d’écran de OJS](./doc/screenshots/Open_Journal_Systems_interface_screenshot.png)
 ![Capture d’écran de OJS](./doc/screenshots/screenshot.png)
 
 ## Documentations et ressources
