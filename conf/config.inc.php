@@ -33,7 +33,7 @@ app_key = __APP_KEY__
 installed = On
 
 ; The canonical URL to the OJS installation (excluding the trailing slash)
-base_url = "__DOMAIN__/__PATH__"
+base_url = "__DOMAIN____PATH__"
 
 ; Enable strict mode. This will more aggressively cause errors/warnings when
 ; deprecated behaviour exists in the codebase.
@@ -101,7 +101,7 @@ allowed_hosts = '__DOMAIN__'
 ; Allow the X_FORWARDED_FOR header to override the REMOTE_ADDR as the source IP
 ; Set this to "On" if you are behind a reverse proxy and you control the X_FORWARDED_FOR
 ; Warning: This defaults to "On" if unset for backwards compatibility.
-trust_x_forwarded_for = Off
+trust_x_forwarded_for = On
 
 ; Set the maximum number of citation checking processes that may run in parallel.
 ; Too high a value can increase server load and lead to too many parallel outgoing
@@ -147,7 +147,7 @@ sandbox = Off
 driver = mysqli
 host = localhost
 username = __DB_USER__
-password = __DB_PWD__
+password = "__DB_PWD__"
 name = __DB_NAME__
 
 ; Set the non-standard port and/or socket, if used
@@ -202,7 +202,7 @@ web_cache_hours = 1
 [i18n]
 
 ; Default locale
-locale = en
+locale = __LANGUAGE__
 
 ; Database connection character set
 connection_charset = utf8
