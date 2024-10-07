@@ -1,7 +1,7 @@
-This is a dummy disclaimer to display after the install
+**Database**
+Username = __DB_USER__
+Password = "__DB_PWD__"
+Name = __DB_NAME__
 
-The app url is <https://__DOMAIN____PATH__>
-
-The app install dir is `__INSTALL_DIR__`
-
-The app id is `__ID__`
+**Data directory**
+__DATA_DIR__

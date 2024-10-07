@@ -1,64 +1,50 @@
-# Memaket satu aplikasi, dimulai dari contoh ini
-
-- Salin aplikasi ini sebelum mengerjakannya, menggunakan tombol ['Gunakan templat ini'](https://github.com/new?template_name=example_ynh&template_owner=YunoHost) di repo Github
-- Edit `manifest.toml` dengan info khas aplikasi
-- Edit skrip `install`, `upgrade`, `remove`, `backup` and `restore`, dan setiap berkas conf yang relevan dalam `conf/`
-  - Menggunakan [dokumentasi pembantu skrip](https://yunohost.org/packaging_apps_helpers)
-- Juga edit skrip `change_url` dan `config`, atau singkirkan mereka bila Anda sudah tidak memerlukannya
-- Tambah berkas `LICENSE` pada paket.
-  - NB: berkas `LICENSE` ini tidak dimaksudkan untuk selalu sama dengan aplikasi hulu - hanya LICENSE yang Anda inginkan untuk menerbitkan kode paket ini dan Anda bisa bebas memilihnya! (Bila Anda tidak tahu mana yang harus dipilih, kami sarankan [the AGPL-3](https://www.gnu.org/licenses/agpl-3.0.txt))
-- Edit berkas di bawah direktori `doc/` ([lihat halaman mengenai mendokumentasikan paket](https://yunohost.org/packaging_app_doc))
-- Berkas `README.md` akan dibuat secara otomatis oleh <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>
-
----
 <!--
 N.B.: README ini dibuat secara otomatis oleh <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>
 Ini TIDAK boleh diedit dengan tangan.
 -->
 
-# Example app untuk YunoHost
+# OJS untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/example.svg)](https://ci-apps.yunohost.org/ci/apps/example/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/example.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/example.maintain.svg)
+[![Tingkat integrasi](https://dash.yunohost.org/integration/ojs.svg)](https://ci-apps.yunohost.org/ci/apps/ojs/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/ojs.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/ojs.maintain.svg)
 
-[![Pasang Example app dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=example)
+[![Pasang OJS dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=ojs)
 
 *[Baca README ini dengan bahasa yang lain.](./ALL_README.md)*
 
-> *Paket ini memperbolehkan Anda untuk memasang Example app secara cepat dan mudah pada server YunoHost.*  
+> *Paket ini memperbolehkan Anda untuk memasang OJS secara cepat dan mudah pada server YunoHost.*  
 > *Bila Anda tidak mempunyai YunoHost, silakan berkonsultasi dengan [panduan](https://yunohost.org/install) untuk mempelajari bagaimana untuk memasangnya.*
 
 ## Ringkasan
 
-This is a dummy description of this app features
+Open Journal Systems is open source software to manage scholarly journals.
 
 
-**Versi terkirim:** 1.0~ynh1
-
-**Demo:** <https://demo.example.com>
+**Versi terkirim:** 3.4.0-7~ynh1
 
 ## Tangkapan Layar
 
-![Tangkapan Layar pada Example app](./doc/screenshots/example.jpg)
+![Tangkapan Layar pada OJS](./doc/screenshots/Open_Journal_Systems_interface_screenshot.png)
+![Tangkapan Layar pada OJS](./doc/screenshots/screenshot.png)
 
 ## Dokumentasi dan sumber daya
 
-- Website aplikasi resmi: <https://example.com>
-- Dokumentasi pengguna resmi: <https://yunohost.org/apps>
-- Dokumentasi admin resmi: <https://yunohost.org/packaging_apps>
-- Depot kode aplikasi hulu: <https://some.forge.com/example/example>
-- Gudang YunoHost: <https://apps.yunohost.org/app/example>
-- Laporkan bug: <https://github.com/YunoHost-Apps/example_ynh/issues>
+- Website aplikasi resmi: <https://pkp.sfu.ca/software/ojs>
+- Dokumentasi pengguna resmi: <https://docs.pkp.sfu.ca/>
+- Dokumentasi admin resmi: <https://docs.pkp.sfu.ca/admin-guide/>
+- Depot kode aplikasi hulu: <https://github.com/pkp/ojs>
+- Gudang YunoHost: <https://apps.yunohost.org/app/ojs>
+- Laporkan bug: <https://github.com/YunoHost-Apps/ojs_ynh/issues>
 
 ## Info developer
 
-Silakan kirim pull request ke [`testing` branch](https://github.com/YunoHost-Apps/example_ynh/tree/testing).
+Silakan kirim pull request ke [`testing` branch](https://github.com/YunoHost-Apps/ojs_ynh/tree/testing).
 
 Untuk mencoba branch `testing`, silakan dilanjutkan seperti:
 
 ```bash
-sudo yunohost app install https://github.com/YunoHost-Apps/example_ynh/tree/testing --debug
+sudo yunohost app install https://github.com/YunoHost-Apps/ojs_ynh/tree/testing --debug
 atau
-sudo yunohost app upgrade example -u https://github.com/YunoHost-Apps/example_ynh/tree/testing --debug
+sudo yunohost app upgrade ojs -u https://github.com/YunoHost-Apps/ojs_ynh/tree/testing --debug
 ```
 
 **Info lebih lanjut mengenai pemaketan aplikasi:** <https://yunohost.org/packaging_apps>
