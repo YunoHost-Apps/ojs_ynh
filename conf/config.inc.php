@@ -336,7 +336,7 @@ sendmail_path = "/usr/sbin/sendmail -bs"
 ; allow_envelope_sender = Off
 
 ; Default envelope sender to use if none is specified elsewhere
-; default_envelope_sender = my_address@my_host.com
+ default_envelope_sender = __APP__@__DOMAIN__
 
 ; Force the default envelope sender (if present)
 ; This is useful if setting up a site-wide no-reply address
