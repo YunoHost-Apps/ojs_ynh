@@ -16,7 +16,7 @@ Il NE doit PAS être modifié à la main.
 
 ## Vue d’ensemble
 
-Ceci est une fausse description des fonctionalités de l'app
+Logiciel pour gérer des revues scientifiques
 
 
 **Version incluse :** 3.4.0-7~ynh1

@@ -30,7 +30,7 @@ app_key = __APP_KEY__
 
 ; Set this to On once the system has been installed
 ; (This is generally done automatically by the installer)
-installed = On
+installed = Off
 
 ; The canonical URL to the OJS installation (excluding the trailing slash)
 base_url = "__DOMAIN____PATH__"
@@ -96,7 +96,7 @@ restful_urls = Off
 ; An empty string indicates that all hosts should be trusted (not recommended!)
 ; Example:
 ; allowed_hosts = '["myjournal.tld", "anotherjournal.tld", "mylibrary.tld"]'
-allowed_hosts = '__DOMAIN__'
+allowed_hosts = '["__DOMAIN__"]'
 
 ; Allow the X_FORWARDED_FOR header to override the REMOTE_ADDR as the source IP
 ; Set this to "On" if you are behind a reverse proxy and you control the X_FORWARDED_FOR
@@ -146,9 +146,9 @@ sandbox = Off
 
 driver = mysqli
 host = localhost
-username = __DB_USER__
-password = "__DB_PWD__"
-name = __DB_NAME__
+username = 
+password = 
+name = 
 
 ; Set the non-standard port and/or socket, if used
 ; port = 3306
@@ -336,7 +336,7 @@ sendmail_path = "/usr/sbin/sendmail -bs"
 ; allow_envelope_sender = Off
 
 ; Default envelope sender to use if none is specified elsewhere
-; default_envelope_sender = my_address@my_host.com
+ default_envelope_sender = __APP__@__DOMAIN__
 
 ; Force the default envelope sender (if present)
 ; This is useful if setting up a site-wide no-reply address
