@@ -10,8 +10,7 @@ ynh_script_progression "Updating NGINX web server configuration..."
 
 ynh_config_change_url_nginx
 
-ynh_replace_string --match_string="__OLD_DOMAIN____OLD_PATH__" --replace_string="__NEW_DOMAIN____NEW_PATH__" --target_file="$install_dir/config.inc.php"
-
+ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
 chmod 600 "$install_dir/config.inc.php"
 chown "$app:$app" "$install_dir/config.inc.php"
 
