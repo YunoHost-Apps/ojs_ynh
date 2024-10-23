@@ -8,7 +8,7 @@ name = "OJS"
 description.en = "Software to manage scholarly journals"
 description.fr = "Logiciel pour gérer des revues scientifiques"
 
-version = "3.4.0-7~ynh2"
+version = "3.4.0-7~ynh3"
 
 maintainers = ["DeMiro5001"]
 
@@ -71,7 +71,8 @@ ram.runtime = "50M"
 
     [resources.system_user]
     allow_email = true
-
+    mail_user = "contact"
+    
     [resources.install_dir]
     group = "www-data:r-x"
 
