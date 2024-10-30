@@ -10,6 +10,8 @@ app_key=$(ynh_string_random --length=32)
 ynh_app_setting_set --key=salt --value=$salt
 ynh_app_setting_set --key=api_key_secret --value=$api_key_secret
 ynh_app_setting_set --key=app_key --value=$app_key
+ynh_app_setting_set --key=language --value=$language
+ynh_app_setting_set --key=locale --value=$locale
 
 admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
 
@@ -43,6 +45,8 @@ chmod 600 "$install_dir/config.inc.php"
 chown "$app:$app" "$install_dir/config.inc.php"
 
 ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
+
+ynh_local_curl "index.php/index/install/install" "installLanguage=$language" "adminUsername=$admin" "adminPassword=$password" "adminPassword2=$password" "adminEmail=$admin_mail" "locale=$locale" "timeZone=$timezone" "filesDir=$data_dir" "databaseDriver=mysqli" "databaseHost=localhost" "databaseUsername=$db_user" "databasePassword=$db_pwd" "databaseName=$db_name" "oaiRepositoryId=ojs.local" "submitFormButton=1"
 
 #=================================================
 # END OF SCRIPT
