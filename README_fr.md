@@ -19,7 +19,7 @@ Il NE doit PAS être modifié à la main.
 Logiciel pour gérer des revues scientifiques
 
 
-**Version incluse :** 3.4.0-7~ynh2
+**Version incluse :** 3.4.0-7~ynh3
 
 ## Captures d’écran
 

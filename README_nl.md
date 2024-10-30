@@ -19,7 +19,7 @@ Hij mag NIET handmatig aangepast worden.
 Open Journal Systems is open source software to manage scholarly journals.
 
 
-**Geleverde versie:** 3.4.0-7~ynh2
+**Geleverde versie:** 3.4.0-7~ynh3
 
 ## Schermafdrukken
 
