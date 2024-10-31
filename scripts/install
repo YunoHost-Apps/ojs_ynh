@@ -15,9 +15,6 @@ ynh_app_setting_set --key=locale --value=$locale
 
 admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
 
-mail_user="noreply"
-ynh_app_setting_set --key=mail_user --value=$mail_user
-
 timezone="$(cat /etc/timezone)"
 ynh_app_setting_set --key=timezone --value=$timezone
 
