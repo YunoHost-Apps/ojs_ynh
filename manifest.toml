@@ -205,7 +205,7 @@ default = "en"
     #autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
-    allow_email = true
+    #allow_email = true
 
     [resources.install_dir]
     group = "www-data:r-x"
