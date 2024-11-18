@@ -10,8 +10,8 @@ ynh_script_progression "Upgrading source files..."
 
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php public"
 
-ynh_spawn_app_shell "$app" <<< 'php lib/pkp/tools/jobs.php work'
-ynh_spawn_app_shell "$app" <<< 'php tools/upgrade.php upgrade'
+ynh_exec_as_app 'php lib/pkp/tools/jobs.php work'
+ynh_exec_as_app 'php tools/upgrade.php upgrade'
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
