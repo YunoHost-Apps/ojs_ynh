@@ -281,7 +281,7 @@ session_check_ip = On
 encryption = sha1
 
 ; The unique salt to use for generating password reset hashes
-salt = "YouMustSetASecretKeyHere!!"
+salt = "__SALT__"
 
 ; The unique secret used for encoding and decoding API keys
 api_key_secret = "__API_KEY_SECRET__"
@@ -309,23 +309,23 @@ allowed_title_html = "b,i,u,sup,sub"
 
 ; Default method to send emails
 ; Available options: sendmail, smtp, log, phpmailer
-default = smtp
+default = sendmail
 
 ; Path to the sendmail, -bs argument is for using SMTP protocol
 sendmail_path = "/usr/sbin/sendmail -bs"
 
 ; Use SMTP for sending mail instead of mail()
- smtp = On
+ smtp = Off
 
 ; SMTP server settings
- smtp_server = localhost
+; smtp_server = localhost
 ; smtp_port = 25
 
 ; Enable SMTP authentication
 ; Supported smtp_auth: ssl, tls (see PHPMailer SMTPSecure)
 ; smtp_auth = ssl
- smtp_username = __APP__
- smtp_password = __MAIL_PWD__
+; smtp_username = 
+; smtp_password = 
 
 ; Enable suppressing SSL/TLS peer verification by SMTP transports
 ; Note: this is not recommended for security reasons
@@ -336,7 +336,7 @@ sendmail_path = "/usr/sbin/sendmail -bs"
 ; allow_envelope_sender = Off
 
 ; Default envelope sender to use if none is specified elsewhere
- default_envelope_sender = __APP__@__DOMAIN__
+ default_envelope_sender = noreply@__DOMAIN__
 
 ; Force the default envelope sender (if present)
 ; This is useful if setting up a site-wide no-reply address
@@ -618,4 +618,4 @@ expiration_days = 3
 
 [features]
 
-enable_new_submission_listing = Off
+enable_new_submission_listing = On
