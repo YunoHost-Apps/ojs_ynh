@@ -205,7 +205,7 @@ default = "en"
     #autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
-    allow_email = true
+    #allow_email = true
 
     [resources.install_dir]
     group = "www-data:r-x"
@@ -216,7 +216,7 @@ default = "en"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server, php8.3, php8.3-mysqli, php8.3-mbstring, php8.3-xml, php8.3-intl"
+    packages = "mariadb-server, php8.3, php8.3-mysqli, php8.3-mbstring, php8.3-xml, php8.3-intl poppler-utils antiword"
 
     [resources.database]
     type = "mysql"

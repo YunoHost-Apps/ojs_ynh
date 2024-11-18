@@ -6,7 +6,5 @@ Name = __DB_NAME__
 **Data directory**
 __DATA_DIR__
 
-**SMTP settings**
-SMTP_LOGIN=__APP__
-SMTP_PASSWORD=__MAIL_PWD__
-SMTP_FROM_ADDRESS= <__APP__@__DOMAIN__>
+**Email**
+Add noreply@__DOMAIN__ as an alias to one of your admins
