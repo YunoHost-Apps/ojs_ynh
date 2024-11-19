@@ -48,6 +48,11 @@ ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
 ynh_local_curl "index.php/index/install/install" "installLanguage=$language" "adminUsername=$admin" "adminPassword=$password" "adminPassword2=$password" "adminEmail=$admin_mail" "locale=$locale" "timeZone=$timezone" "filesDir=$data_dir" "databaseDriver=mysqli" "databaseHost=localhost" "databaseUsername=$db_user" "databasePassword=$db_pwd" "databaseName=$db_name" "oaiRepositoryId=$domain" "submitFormButton=1"
 
+# Download DB-IP lite city database
+wget https://download.db-ip.com/free/dbip-city-lite-2024-11.mmdb.gz
+gzip -d dbip-city-lite-2024-11.mmdb.gz
+mv dbip-city-lite-2024-11.mmdb $data_dir/usageStats/IPGeoDB.mmdb
+
 #=================================================
 # END OF SCRIPT
 #=================================================
