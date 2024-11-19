@@ -19,7 +19,7 @@ No se debe editar a mano.
 Open Journal Systems is open source software to manage scholarly journals.
 
 
-**Versión actual:** 3.4.0-7~ynh3
+**Versión actual:** 3.4.0-7~ynh4
 
 ## Capturas
 
