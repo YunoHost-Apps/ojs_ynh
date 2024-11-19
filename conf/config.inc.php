@@ -30,7 +30,7 @@ app_key = __APP_KEY__
 
 ; Set this to On once the system has been installed
 ; (This is generally done automatically by the installer)
-installed = Off
+installed = On
 
 ; The canonical URL to the OJS installation (excluding the trailing slash)
 base_url = "__DOMAIN____PATH__"
@@ -146,9 +146,9 @@ sandbox = Off
 
 driver = mysqli
 host = localhost
-username = 
-password = 
-name = 
+username = __DB_USER__
+password = "__DB_PWD__"
+name = __DB_NAME__
 
 ; Set the non-standard port and/or socket, if used
 ; port = 3306
