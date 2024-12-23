@@ -146,9 +146,9 @@ sandbox = Off
 
 driver = mysqli
 host = localhost
-username = 
-password = 
-name = 
+username = __DB_USER__
+password = "__DB_PWD__"
+name = __DB_NAME__
 
 ; Set the non-standard port and/or socket, if used
 ; port = 3306

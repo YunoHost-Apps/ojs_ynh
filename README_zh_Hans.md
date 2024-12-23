@@ -5,7 +5,9 @@
 
 # YunoHost 上的 OJS
 
-[![集成程度](https://dash.yunohost.org/integration/ojs.svg)](https://ci-apps.yunohost.org/ci/apps/ojs/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/ojs.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/ojs.maintain.svg)
+[![集成程度](https://apps.yunohost.org/badge/integration/ojs)](https://ci-apps.yunohost.org/ci/apps/ojs/)
+![工作状态](https://apps.yunohost.org/badge/state/ojs)
+![维护状态](https://apps.yunohost.org/badge/maintained/ojs)
 
 [![使用 YunoHost 安装 OJS](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=ojs)
 
@@ -19,7 +21,7 @@
 Open Journal Systems is open source software to manage scholarly journals.
 
 
-**分发版本：** 3.4.0-7~ynh3
+**分发版本：** 3.4.0-8~ynh1
 
 ## 截图
 

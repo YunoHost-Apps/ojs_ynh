@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # OJS untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/ojs.svg)](https://ci-apps.yunohost.org/ci/apps/ojs/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/ojs.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/ojs.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/ojs)](https://ci-apps.yunohost.org/ci/apps/ojs/)
+![Status kerja](https://apps.yunohost.org/badge/state/ojs)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/ojs)
 
 [![Pasang OJS dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=ojs)
 
@@ -19,7 +21,7 @@ Ini TIDAK boleh diedit dengan tangan.
 Open Journal Systems is open source software to manage scholarly journals.
 
 
-**Versi terkirim:** 3.4.0-7~ynh3
+**Versi terkirim:** 3.4.0-8~ynh1
 
 ## Tangkapan Layar
 

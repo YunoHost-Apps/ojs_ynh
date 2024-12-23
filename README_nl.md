@@ -5,7 +5,9 @@ Hij mag NIET handmatig aangepast worden.
 
 # OJS voor Yunohost
 
-[![Integratieniveau](https://dash.yunohost.org/integration/ojs.svg)](https://ci-apps.yunohost.org/ci/apps/ojs/) ![Mate van functioneren](https://ci-apps.yunohost.org/ci/badges/ojs.status.svg) ![Onderhoudsstatus](https://ci-apps.yunohost.org/ci/badges/ojs.maintain.svg)
+[![Integratieniveau](https://apps.yunohost.org/badge/integration/ojs)](https://ci-apps.yunohost.org/ci/apps/ojs/)
+![Mate van functioneren](https://apps.yunohost.org/badge/state/ojs)
+![Onderhoudsstatus](https://apps.yunohost.org/badge/maintained/ojs)
 
 [![OJS met Yunohost installeren](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=ojs)
 
@@ -19,7 +21,7 @@ Hij mag NIET handmatig aangepast worden.
 Open Journal Systems is open source software to manage scholarly journals.
 
 
-**Geleverde versie:** 3.4.0-7~ynh3
+**Geleverde versie:** 3.4.0-8~ynh1
 
 ## Schermafdrukken
 

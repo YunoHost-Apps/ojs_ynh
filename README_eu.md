@@ -5,7 +5,9 @@ EZ editatu eskuz.
 
 # OJS YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/ojs.svg)](https://ci-apps.yunohost.org/ci/apps/ojs/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/ojs.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/ojs.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/ojs)](https://ci-apps.yunohost.org/ci/apps/ojs/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/ojs)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/ojs)
 
 [![Instalatu OJS YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=ojs)
 
@@ -19,7 +21,7 @@ EZ editatu eskuz.
 Open Journal Systems is open source software to manage scholarly journals.
 
 
-**Paketatutako bertsioa:** 3.4.0-7~ynh3
+**Paketatutako bertsioa:** 3.4.0-8~ynh1
 
 ## Pantaila-argazkiak
 
