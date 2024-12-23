@@ -199,8 +199,8 @@ default = "en"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://pkp.sfu.ca/ojs/download/ojs-3.4.0-7.tar.gz"
-    sha256 = "f330fdbbed8900e4510484dc1a66085f3da79ba96cbe38894d0b238b3e80733a"
+    url = "https://pkp.sfu.ca/ojs/download/ojs-3.4.0-8.tar.gz"
+    sha256 = "f0aa8cb271e12ee4ba4368942f799e95b80f55534813da95618629209f3fcf73"
 
     #autoupdate.strategy = "latest_github_tag"
 
