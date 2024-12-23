@@ -5,7 +5,9 @@ Il NE doit PAS être modifié à la main.
 
 # OJS pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/ojs.svg)](https://ci-apps.yunohost.org/ci/apps/ojs/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/ojs.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/ojs.maintain.svg)
+[![Niveau d’intégration](https://apps.yunohost.org/badge/integration/ojs)](https://ci-apps.yunohost.org/ci/apps/ojs/)
+![Statut du fonctionnement](https://apps.yunohost.org/badge/state/ojs)
+![Statut de maintenance](https://apps.yunohost.org/badge/maintained/ojs)
 
 [![Installer OJS avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=ojs)
 

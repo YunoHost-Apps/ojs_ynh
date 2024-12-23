@@ -5,7 +5,9 @@
 
 # OJS для YunoHost
 
-[![Уровень интеграции](https://dash.yunohost.org/integration/ojs.svg)](https://ci-apps.yunohost.org/ci/apps/ojs/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/ojs.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/ojs.maintain.svg)
+[![Уровень интеграции](https://apps.yunohost.org/badge/integration/ojs)](https://ci-apps.yunohost.org/ci/apps/ojs/)
+![Состояние работы](https://apps.yunohost.org/badge/state/ojs)
+![Состояние сопровождения](https://apps.yunohost.org/badge/maintained/ojs)
 
 [![Установите OJS с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=ojs)
 
