@@ -11,8 +11,8 @@ ynh_script_progression "Upgrading source files..."
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php public"
 
 pushd $install_dir
-  php tools/upgrade.php check
-  php -d memory_limit=2048M tools/upgrade.php upgrade
+  php8.3 tools/upgrade.php check
+  php8.3 -d memory_limit=2048M tools/upgrade.php upgrade
 popd
 
 #=================================================
