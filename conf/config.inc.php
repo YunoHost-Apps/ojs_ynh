@@ -33,7 +33,7 @@ app_key = __APP_KEY__
 installed = Off
 
 ; The canonical URL to the OJS installation (excluding the trailing slash)
-base_url = "__DOMAIN____PATH__"
+base_url = "__DOMAIN__"
 
 ; Enable strict mode. This will more aggressively cause errors/warnings when
 ; deprecated behaviour exists in the codebase.
