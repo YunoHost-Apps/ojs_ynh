@@ -46,7 +46,7 @@ chown "$app:$app" "$install_dir/config.inc.php"
 
 ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
-#ynh_local_curl "index.php/index/install/install" "installLanguage=$language" "adminUsername=$admin" "adminPassword=$password" "adminPassword2=$password" "adminEmail=$admin_mail" "locale=$locale" "timeZone=$timezone" "filesDir=$data_dir" "databaseDriver=mysqli" "databaseHost=localhost" "databaseUsername=$db_user" "databasePassword=$db_pwd" "databaseName=$db_name" "oaiRepositoryId=$domain" "submitFormButton=1"
+ynh_local_curl "index.php/index/install/install" "installLanguage=$language" "adminUsername=$admin" "adminPassword=$password" "adminPassword2=$password" "adminEmail=$admin_mail" "locale=$locale" "timeZone=$timezone" "filesDir=$data_dir" "databaseDriver=mysqli" "databaseHost=localhost" "databaseUsername=$db_user" "databasePassword=$db_pwd" "databaseName=$db_name" "oaiRepositoryId=$domain" "submitFormButton=1"
 
 #=================================================
 # END OF SCRIPT
