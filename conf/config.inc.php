@@ -33,7 +33,7 @@ app_key = __APP_KEY__
 installed = Off
 
 ; The canonical URL to the OJS installation (excluding the trailing slash)
-base_url = "__DOMAIN__"
+base_url = "__DOMAIN____PATH__"
 
 ; Enable strict mode. This will more aggressively cause errors/warnings when
 ; deprecated behaviour exists in the codebase.
@@ -202,7 +202,7 @@ web_cache_hours = 1
 [i18n]
 
 ; Default locale
-locale = __LANGUAGE__
+locale = __LOCALE__
 
 ; Database connection character set
 connection_charset = utf8
