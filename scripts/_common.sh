@@ -6,7 +6,7 @@
 
 fetch_dynamic_ids()  {
 
-curl -s $domain/$path/index.php/index/install/install > form.html
+curl -s https://$domain$path/index.php/index/install/install > form.html
 
 adminUsername_id=$(grep -oP 'id="adminUsername-\K[^"]+' form.html)
 adminPassword_id=$(grep -oP 'id="adminPassword-\K[^"]+' form.html)
