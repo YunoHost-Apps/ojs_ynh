@@ -38,9 +38,9 @@ ram.runtime = "50M"
     [install.domain]
     type = "domain"
 
-#    [install.path]
-#    type = "path"
-#    default = "/ojs"
+    [install.path]
+    type = "path"
+    default = "/ojs"
 
     [install.init_main_permission]
     type = "group"
