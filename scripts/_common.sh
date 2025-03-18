@@ -20,3 +20,33 @@ databaseName_id=$(grep -oP 'id="databaseName-\K[^"]+' /tmp/form.html)
 oaiRepositoryId_id=$(grep -oP 'id="oaiRepositoryId-\K[^"]+' /tmp/form.html)
 
 }
+
+ojs_install()  {
+python -m venv ojs_install
+source ojs_install/bin/activate
+pip install playwright
+playwright install chromium
+
+cp ../conf/ojs.py ojs.py
+
+python3 ojs.py \
+    --install-language "$language" \
+    --admin-username "$admin" \
+    --admin-password "$password" \
+    --admin-email "$admin_mail" \
+    --locale "$locale" \
+    --time-zone "$time_zone" \
+    --files-dir "$data_dir" \
+    --database-driver "mysqli" \
+    --database-host "localhost" \
+    --database-username "$db_user" \
+    --database-password "$db_pwd" \
+    --database-name "$db_name" \
+    --oai-repository-id "$domain" \
+    --domain "$domain"
+
+deactivate
+rm -rf ojs_install
+
+
+}
