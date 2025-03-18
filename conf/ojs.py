@@ -41,7 +41,14 @@ with sync_playwright() as p:
     page.select_option('select[name="locale"]', value=args.locale)
 
     print("Selecting the time zone...")
-    page.select_option('select[name="timeZone"]', value=args.time_zone)
+    print("Selecting the time zone...")
+    try:
+        page.select_option('select[name="timeZone"]', value=args.time_zone)
+        print(f"Selected time zone: {args.time_zone}")
+    except Exception as e:
+        print(f"Error selecting time zone: {e}")
+        print("Falling back to UTC...")
+        page.select_option('select[name="timeZone"]', value="UTC")
 
     print("Filling out the files directory...")
     page.fill('input[name="filesDir"]', args.files_dir)
