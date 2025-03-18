@@ -36,7 +36,7 @@ python3 ojs.py \
     --admin-password "$password" \
     --admin-email "$admin_mail" \
     --locale "$locale" \
-    --time-zone "$timezone_formatted" \
+    --time-zone "UTC" \
     --files-dir "$data_dir" \
     --database-driver "mysqli" \
     --database-host "localhost" \
