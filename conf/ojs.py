@@ -23,7 +23,7 @@ with sync_playwright() as p:
     page = browser.new_page()
 
     print("Navigating to the installation page...")
-    page.goto(f"https://{args.url}/ojs/index.php/index/install/install")
+    page.goto(f"https://{args.url}/index.php/index/install/install")
 
     print("Waiting for the form to load...")
     page.wait_for_selector('select[name="installLanguage"]', state="visible", timeout=60000)
