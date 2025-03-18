@@ -38,10 +38,10 @@ with sync_playwright() as p:
     page.fill('input[name="adminEmail"]', args.admin_email)
 
     print("Selecting the locale...")
-    page.select_option('select[name="localeOptions"]', value=args.locale)
+    page.select_option('select[name="locale"]', value=args.locale)
 
     print("Selecting the time zone...")
-    page.select_option('select[name="timeZoneOptions"]', value=args.time_zone)
+    page.select_option('select[name="timezone"]', value=args.time_zone)
 
     print("Filling out the files directory...")
     page.fill('input[name="filesDir"]', args.files_dir)
