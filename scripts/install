@@ -18,6 +18,8 @@ admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
 timezone="$(cat /etc/timezone)"
 ynh_app_setting_set --key=timezone --value=$timezone
 
+timezone_formatted=$(format_timezone "$timezone")
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
