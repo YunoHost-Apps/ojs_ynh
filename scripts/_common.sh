@@ -25,6 +25,7 @@ ojs_install()  {
 python -m venv ojs_install
 source ojs_install/bin/activate
 pip install playwright
+playwright install-deps
 playwright install chromium
 
 cp ../conf/ojs.py ojs.py
@@ -35,7 +36,7 @@ python3 ojs.py \
     --admin-password "$password" \
     --admin-email "$admin_mail" \
     --locale "$locale" \
-    --time-zone "$time_zone" \
+    --time-zone "$timezone" \
     --files-dir "$data_dir" \
     --database-driver "mysqli" \
     --database-host "localhost" \
