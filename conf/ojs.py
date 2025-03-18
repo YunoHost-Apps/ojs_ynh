@@ -19,9 +19,10 @@ parser.add_argument("--url", required=True, help="url (e.g., domain.com/path)")
 args = parser.parse_args()
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True, ignore_https_errors=True)
-    page = browser.new_page()
-
+    browser = p.chromium.launch(headless=True)
+    context = browser.new_context(ignore_https_errors=True)
+    page = context.new_page()
+    
     print("Navigating to the installation page...")
     page.goto(f"https://{args.url}/index.php/index/install")
 
