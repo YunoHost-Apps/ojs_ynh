@@ -41,7 +41,7 @@ with sync_playwright() as p:
     page.select_option('select[name="locale"]', value=args.locale)
 
     print("Selecting the time zone...")
-    page.select_option('select[name="timezone"]', value=args.time_zone)
+    page.select_option('select[name="timeZone"]', value=args.time_zone)
 
     print("Filling out the files directory...")
     page.fill('input[name="filesDir"]', args.files_dir)
