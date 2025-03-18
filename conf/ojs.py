@@ -19,7 +19,7 @@ parser.add_argument("--url", required=True, help="url (e.g., domain.com/path)")
 args = parser.parse_args()
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
+    browser = p.chromium.launch(headless=True, ignore_https_errors=True)
     page = browser.new_page()
 
     print("Navigating to the installation page...")
