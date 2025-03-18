@@ -44,10 +44,9 @@ python3 ojs.py \
     --database-password "$db_pwd" \
     --database-name "$db_name" \
     --oai-repository-id "$domain" \
-    --domain "$domain"
+    --url "$domain"
 
 deactivate
 rm -rf ojs_install
-
 
 }
