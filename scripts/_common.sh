@@ -50,3 +50,23 @@ deactivate
 rm -rf ojs_install
 
 }
+
+format_timezone() {
+    local timezone="$1"
+    if [[ -z "$timezone" ]]; then
+        echo "UTC"
+        return
+    fi
+
+    offset=$(TZ="$timezone" date +%z)
+    if [[ -z "$offset" ]]; then
+        echo "UTC"
+        return
+    fi
+
+    offset_formatted="${offset:0:3}:${offset:3:2}"
+
+    city=$(echo "$timezone" | awk -F/ '{print $NF}')
+
+    echo "${city} (${offset_formatted})"
+}
