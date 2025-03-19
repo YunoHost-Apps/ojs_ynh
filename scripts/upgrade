@@ -8,8 +8,6 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_store_file_checksum --file="$install_dir/config.inc.php"
-
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php public locale plugins"
 
 pushd $install_dir
@@ -17,6 +15,8 @@ pushd $install_dir
   php8.3 -d memory_limit=2048M tools/upgrade.php upgrade
 popd
 
+ynh_store_file_checksum --file="$install_dir/config.inc.php"
+ 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
