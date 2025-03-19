@@ -67,10 +67,17 @@ with sync_playwright() as p:
     page.fill('input[name="oaiRepositoryId"]', args.oai_repository_id)
 
     print("Submitting the form...")
-    page.click('button[name="submitFormButton"]')
+    try:
+        page.wait_for_selector('button[name="submitFormButton"]', state="visible", timeout=60000)
+        
+        with page.expect_navigation():
+            page.click('button[name="submitFormButton"]', timeout=60000)
+        print("Form submitted successfully.")
+    except Exception as e:
+        print(f"Error submitting the form: {e}")
 
     print("Waiting for the installation to complete...")
-    page.wait_for_timeout(5000)  # Adjust the timeout as needed
+    page.wait_for_timeout(60000)
 
     with open("result.html", "w", encoding="utf-8") as f:
         f.write(page.content())
