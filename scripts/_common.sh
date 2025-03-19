@@ -47,7 +47,7 @@ python3 ojs.py \
     --url "$domain"
 
 deactivate
-rm -rf ojs_install
+ynh_safe_rm ojs_install
 
 }
 
