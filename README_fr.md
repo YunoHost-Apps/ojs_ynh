@@ -21,7 +21,7 @@ Il NE doit PAS être modifié à la main.
 Logiciel pour gérer des revues scientifiques
 
 
-**Version incluse :** 3.4.0-8~ynh1
+**Version incluse :** 3.4.0-8~ynh2
 
 ## Captures d’écran
 

@@ -18,6 +18,8 @@ admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
 timezone="$(cat /etc/timezone)"
 ynh_app_setting_set --key=timezone --value=$timezone
 
+timezone_formatted=$(format_timezone "$timezone")
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
@@ -39,15 +41,26 @@ ynh_config_add_nginx
 #=================================================
 ynh_script_progression "Adding app's configuration file..."
 
+# Remove trailing slash
+path="${path%/}"
+
 ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
 
 chmod 600 "$install_dir/config.inc.php"
-chown "$app:$app" "$install_dir/config.inc.php"
+chown "$app:www-data" "$install_dir/config.inc.php"
 
 ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
-ynh_local_curl "index.php/index/install/install" "installLanguage=$language" "adminUsername=$admin" "adminPassword=$password" "adminPassword2=$password" "adminEmail=$admin_mail" "locale=$locale" "timeZone=$timezone" "filesDir=$data_dir" "databaseDriver=mysqli" "databaseHost=localhost" "databaseUsername=$db_user" "databasePassword=$db_pwd" "databaseName=$db_name" "oaiRepositoryId=$domain" "submitFormButton=1"
+# ynh_local_curl "index.php/index/install/install" "installLanguage=$language" "adminUsername-$adminUsername_id=$admin" "adminPassword-$adminPassword_id=$password" "adminPassword2-$adminPassword2_id=$password" "adminEmail-$adminEmail_id=$admin_mail" "localeOptions=$locale" "timeZoneOptions=$timezone" "filesDir-$filesDir_id=$data_dir" "databaseDriver=mysqli" "databaseHost-$databaseHost_id=localhost" "databaseUsername-$databaseUsername_id=$db_user" "databasePassword-$databasePassword_id=$db_pwd" "databaseName-$databaseName_id=$db_name" "oaiRepositoryId-$oaiRepositoryId_id=$domain" "submitFormButton=1"
 
+#curl -k -b cookies.txt  -X POST -d "installLanguage=$language" -d "adminUsername=$admin" -d "adminPassword=$password" -d "adminPassword2=$password" -d "adminEmail=$admin_mail" -d "localeOptions=$locale" -d "timeZoneOptions=$timezone" -d "filesDir=$data_dir" -d "databaseDriver=mysqli" -d "databaseHost=localhost" -d "databaseUsername=$db_user" -d "databasePassword=$db_pwd" -d "databaseName=$db_name" -d "oaiRepositoryId=$domain" -d "submitFormButton=1" -i https://$domain$path/index.php/index/install/install  
+
+ynh_script_progression "Installing $app. This can take a while"
+
+ojs_install
+
+ynh_store_file_checksum "$install_dir/config.inc.php"
+ 
 #=================================================
 # END OF SCRIPT
 #=================================================

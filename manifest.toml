@@ -4,11 +4,10 @@ packaging_format = 2
 
 id = "ojs"
 name = "OJS"
-
 description.en = "Software to manage scholarly journals"
 description.fr = "Logiciel pour gérer des revues scientifiques"
 
-version = "3.4.0-8~ynh1"
+version = "3.4.0-8~ynh2"
 
 maintainers = ["DeMiro5001"]
 
@@ -20,11 +19,11 @@ userdoc = "https://docs.pkp.sfu.ca/"
 code = "https://github.com/pkp/ojs"
 
 [integration]
-
-yunohost = ">= 11.2.30"
+yunohost = ">= 12.0.9"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
+
 ldap = false
 
 sso = false
@@ -37,10 +36,6 @@ ram.runtime = "50M"
 
     [install.domain]
     type = "domain"
-
-    [install.path]
-    type = "path"
-    default = "/ojs"
 
     [install.init_main_permission]
     type = "group"
@@ -115,7 +110,7 @@ ram.runtime = "50M"
     choices.ja = "日本語"
     choices.ja_JP = "日本語 (日本)"
     choices.ko = "한국어"
-default = "en"
+    default = "en"
 
     [install.locale]
     ask.en = "Choose the application locale"
@@ -186,7 +181,7 @@ default = "en"
     choices.zh_CN="Chinese (China) (zh_CN)"
     choices.zh_Hans="Chinese (zh_Hans)"
     choices.zh_Hant="Chinese (zh_Hant)"
-default = "en"
+    default = "en"
 
     [install.admin]
     type = "user"
@@ -202,10 +197,8 @@ default = "en"
     url = "https://pkp.sfu.ca/ojs/download/ojs-3.4.0-8.tar.gz"
     sha256 = "f0aa8cb271e12ee4ba4368942f799e95b80f55534813da95618629209f3fcf73"
 
-    #autoupdate.strategy = "latest_github_tag"
-
     [resources.system_user]
-    #allow_email = true
+    allow_email = true
 
     [resources.install_dir]
     group = "www-data:r-x"
@@ -216,7 +209,7 @@ default = "en"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server, php8.3, php8.3-mysqli, php8.3-mbstring, php8.3-xml, php8.3-intl poppler-utils antiword"
+    packages = "mariadb-server, php8.3-mysqli, php8.3-mbstring, php8.3-xml, php8.3-intl, poppler-utils, antiword, python3-venv"
 
     [resources.database]
     type = "mysql"
