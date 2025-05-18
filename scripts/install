@@ -15,7 +15,7 @@ ynh_app_setting_set --key=locale --value=$locale
 
 admin_mail=$(ynh_user_get_info --username=$admin --key=mail)
 
-timezone="$(cat /etc/timezone)"
+timezone="$(timedatectl show --value --property=Timezone)"
 ynh_app_setting_set --key=timezone --value=$timezone
 
 timezone_formatted=$(format_timezone "$timezone")
