@@ -1,3 +1,3 @@
 **Email**
 
-System email sender is __MAIL_USER__@__MAIL_DOMAIN__
+System email sender is __MAIL_USER__@__DOMAIN__
