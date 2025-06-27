@@ -1,2 +1,3 @@
 **Email**
-Email sender is __APP__@__DOMAIN__
+
+System email sender is __MAIL_USER__@__MAIL_DOMAIN__
