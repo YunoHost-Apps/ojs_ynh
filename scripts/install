@@ -20,6 +20,8 @@ ynh_app_setting_set --key=timezone --value=$timezone
 
 timezone_formatted=$(format_timezone "$timezone")
 
+ynh_app_setting_set_default --key=mail_user --value="noreply"
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
