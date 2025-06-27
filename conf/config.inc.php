@@ -324,7 +324,7 @@ smtp_port = 25
 ; Enable SMTP authentication
 ; Supported smtp_auth: ssl, tls (see PHPMailer SMTPSecure)
 ; smtp_auth = ssl
-smtp_username = __APP__
+smtp_username = __MAIL_USER__@__MAIL_DOMAIN__
 smtp_password = __MAIL_PWD__
 
 ; Enable suppressing SSL/TLS peer verification by SMTP transports
@@ -336,7 +336,7 @@ smtp_password = __MAIL_PWD__
 ; allow_envelope_sender = Off
 
 ; Default envelope sender to use if none is specified elsewhere
- default_envelope_sender = __APP__@__DOMAIN__
+ default_envelope_sender = __MAIL_USER__@__MAIL_DOMAIN__
 
 ; Force the default envelope sender (if present)
 ; This is useful if setting up a site-wide no-reply address
