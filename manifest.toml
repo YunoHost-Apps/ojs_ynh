@@ -189,6 +189,16 @@ ram.runtime = "50M"
     [install.password]
     type = "password"
 
+    [install.mail_user]
+    default = "noreply"
+    type = "select"
+    choices.noreply="noreply"
+    choices.contact="contact"
+    ask.en = "This is the email that will be used by the app to send system notifications"
+    help.en = "OJS will send emails using the sender <mail_user>@<mail_domain>."
+    ask.fr = "Il s'agit de l'e-mail qui sera utilisé par l'application pour envoyer des notifications système"
+    help.fr = "OJS enverra des e-mails en utilisant l'expéditeur <mail_user>@<mail_domain>."
+
 [resources]
 
     [resources.sources]
@@ -199,7 +209,6 @@ ram.runtime = "50M"
 
     [resources.system_user]
     allow_email = true
-    mail_user = "noreply"
 
     [resources.install_dir]
     group = "www-data:r-x"
