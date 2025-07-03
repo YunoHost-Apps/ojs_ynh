@@ -55,7 +55,26 @@ ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
 ynh_script_progression "Installing $app. This can take a while"
 
-ojs_install
+pushd $install_dir
+ php tools/install.php <<EOF
+$language
+$locale
+$data_dir
+$admin
+$password
+$password
+$admin_mail
+mysqli
+localhost
+$db_user
+$db_pwd
+$db_name
+$domain
+y
+y
+EOF
+popd
+
 
 ynh_store_file_checksum "$install_dir/config.inc.php"
  
