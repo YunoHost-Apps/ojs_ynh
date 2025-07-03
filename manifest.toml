@@ -7,7 +7,7 @@ name = "OJS"
 description.en = "Software to manage scholarly journals"
 description.fr = "Logiciel pour gérer des revues scientifiques"
 
-version = "3.4.0-8~ynh2"
+version = "3.5.0-0~ynh1"
 
 maintainers = ["DeMiro5001"]
 
