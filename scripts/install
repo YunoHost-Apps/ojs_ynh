@@ -53,10 +53,12 @@ chown "$app:www-data" "$install_dir/config.inc.php"
 
 ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
-ynh_script_progression "Installing $app. This can take a while"
+chown -R $app:www-data "$install_dir
+
+ynh_script_progression "Installing $app..."
 
 pushd $install_dir
- php tools/install.php <<EOF
+ ynh_exec_as_app php tools/install.php <<EOF
 $language
 $locale
 $data_dir
