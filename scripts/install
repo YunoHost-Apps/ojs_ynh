@@ -63,13 +63,13 @@ $language
 $locale
 $data_dir
 $admin
-$password
-$password
+"$password"
+"$password"
 $admin_mail
 mysqli
 localhost
 $db_user
-$db_pwd
+"$db_pwd"
 $db_name
 $domain
 y
