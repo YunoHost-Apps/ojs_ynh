@@ -57,24 +57,28 @@ chown -R $app:www-data "$install_dir"
 
 ynh_script_progression "Installing $app..."
 
-pushd $install_dir
- ynh_exec_as_app php tools/install.php <<EOF
-$language
-$locale
-$data_dir
-$admin
-"$password"
-"$password"
-$admin_mail
-mysqli
-localhost
-$db_user
-"$db_pwd"
-$db_name
-$domain
-y
-y
+pushd "$install_dir"
+
+expect <<EOF
+spawn php tools/install.php
+expect "Language*" { send "$language\r" }
+expect "Locale*" { send "$locale\r" }
+expect "File directory*" { send "$data_dir\r" }
+expect "Administrator username*" { send "$admin\r" }
+expect "Administrator password*" { send "$password\r" }
+expect "Repeat password*" { send "$password\r" }
+expect "Administrator email*" { send "$admin_mail\r" }
+expect "Database driver*" { send "mysqli\r" }
+expect "Database host*" { send "localhost\r" }
+expect "Database username*" { send "$db_user\r" }
+expect "Database password*" { send "$db_pwd\r" }
+expect "Database name*" { send "$db_name\r" }
+expect "OAI repository identifier*" { send "$domain\r" }
+expect "Create database tables?*" { send "y\r" }
+expect "Install sample data?*" { send "y\r" }
+expect eof
 EOF
+
 popd
 
 
