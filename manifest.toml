@@ -93,7 +93,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server, php8.4-mysqli, php8.4-mbstring, php8.4-xml, php8.4-intl, php8.4-bcmath, php8.4-curl, php8.4-gd, php8.4-zip, poppler-utils, antiword, python3-venv"
+    packages = "mariadb-server, expect, php8.4-mysqli, php8.4-mbstring, php8.4-xml, php8.4-intl, php8.4-bcmath, php8.4-curl, php8.4-gd, php8.4-zip, poppler-utils, antiword, python3-venv"
 
     [resources.database]
     type = "mysql"
