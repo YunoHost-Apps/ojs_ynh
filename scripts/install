@@ -57,29 +57,31 @@ chown -R $app:www-data "$install_dir"
 
 ynh_script_progression "Installing $app..."
 
-pushd "$install_dir"
+curl --ignore "https://$domain/index/install/install" --data "installing=0&adminUsername=$admin&adminPassword=$password&adminPassword2=$password&adminEmail=$admin%40$domain&locale=$locale&additionalLocales%5B%5D=en_US&clientCharset=utf-8&connectionCharset=utf8&databaseCharset=utf8&filesDir=$data_dir&databaseDriver=mysqli&databaseHost=localhost&databaseUsername=$db_user&databasePassword=$db_pwd&databaseName=$db_name&oaiRepositoryId=$domain&enableBeacon=0" --compressed
 
-expect <<EOF
-spawn php tools/install.php
-expect "Language*" { send "$language\r" }
-expect "Locale*" { send "$locale\r" }
-expect "File directory*" { send "$data_dir\r" }
-expect "Administrator username*" { send "$admin\r" }
-expect "Administrator password*" { send "$password\r" }
-expect "Repeat password*" { send "$password\r" }
-expect "Administrator email*" { send "$admin_mail\r" }
-expect "Database driver*" { send "mysqli\r" }
-expect "Database host*" { send "localhost\r" }
-expect "Database username*" { send "$db_user\r" }
-expect "Database password*" { send "$db_pwd\r" }
-expect "Database name*" { send "$db_name\r" }
-expect "OAI repository identifier*" { send "$domain\r" }
-expect "Create database tables?*" { send "y\r" }
-expect "Install sample data?*" { send "y\r" }
-expect eof
-EOF
+#pushd "$install_dir"
 
-popd
+#expect <<EOF
+#spawn php tools/install.php
+#expect "Language*" { send "$language\r" }
+#expect "Locale*" { send "$locale\r" }
+#expect "File directory*" { send "$data_dir\r" }
+#expect "Administrator username*" { send "$admin\r" }
+#expect "Administrator password*" { send "$password\r" }
+#expect "Repeat password*" { send "$password\r" }
+#expect "Administrator email*" { send "$admin_mail\r" }
+#expect "Database driver*" { send "mysqli\r" }
+#expect "Database host*" { send "localhost\r" }
+#expect "Database username*" { send "$db_user\r" }
+#expect "Database password*" { send "$db_pwd\r" }
+#expect "Database name*" { send "$db_name\r" }
+#expect "OAI repository identifier*" { send "$domain\r" }
+#expect "Create database tables?*" { send "y\r" }
+#expect "Install sample data?*" { send "y\r" }
+#expect eof
+#EOF
+
+#popd
 
 
 ynh_store_file_checksum "$install_dir/config.inc.php"
