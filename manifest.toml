@@ -194,8 +194,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://pkp.sfu.ca/ojs/download/ojs-3.4.0-8.tar.gz"
-    sha256 = "f0aa8cb271e12ee4ba4368942f799e95b80f55534813da95618629209f3fcf73"
+    url = "https://pkp.sfu.ca/ojs/download/ojs-3.5.0-1.tar.gz"
+    sha256 = "78e423421310951cfb290c3856f85aa014ff0fe3d3c02d200d6a65984951b124"
 
     [resources.system_user]
     allow_email = true
