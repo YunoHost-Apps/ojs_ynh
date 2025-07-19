@@ -57,7 +57,7 @@ chown -R $app:www-data "$install_dir"
 
 ynh_script_progression "Installing $app..."
 
-curl --ignore --insecure "https://$domain/$path/index/en/install/install" --data "installing=0&adminUsername=$admin&adminPassword=$password&adminPassword2=$password&adminEmail=$admin%40$domain&locale=$locale&additionalLocales%5B%5D=en_US&clientCharset=utf-8&connectionCharset=utf8&databaseCharset=utf8&filesDir=$data_dir&databaseDriver=mysqli&databaseHost=localhost&databaseUsername=$db_user&databasePassword=$db_pwd&databaseName=$db_name&oaiRepositoryId=$domain&enableBeacon=0" --compressed
+curl --ignore --insecure "https://$domain/$path/index.php/index/en/install/install" --data "installing=0&adminUsername=$admin&adminPassword=$password&adminPassword2=$password&adminEmail=$admin%40$domain&locale=$locale&additionalLocales%5B%5D=en_US&clientCharset=utf-8&connectionCharset=utf8&databaseCharset=utf8&filesDir=$data_dir&databaseDriver=mysqli&databaseHost=localhost&databaseUsername=$db_user&databasePassword=$db_pwd&databaseName=$db_name&oaiRepositoryId=$domain&enableBeacon=0" --compressed
 
 #pushd "$install_dir"
 
