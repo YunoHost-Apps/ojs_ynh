@@ -3,7 +3,6 @@
 #=================================================
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
-phpversion="8.4"
 
 fetch_dynamic_ids()  {
 
