@@ -30,6 +30,9 @@ with sync_playwright() as p:
     print("Waiting to be redirected to the installation page...")
     page.wait_for_url("**/install", timeout=60000)
 
+    print("Waiting for the installation form to load...")
+    page.wait_for_selector('select[name="installLanguage"]', state="visible", timeout=360000)
+
 # Debug begin
 print("Current URL after redirection:", page.url)
 
@@ -52,9 +55,6 @@ for el in form_elements:
 
 # Debug end
     
-    print("Waiting for the installation form to load...")
-    page.wait_for_selector('select[name="installLanguage"]', state="visible", timeout=60000)
-
     print("Selecting the installation language...")
     page.select_option('select[name="installLanguage"]', value=args.install_language)
 
