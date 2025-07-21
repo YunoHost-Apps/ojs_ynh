@@ -15,18 +15,22 @@ parser.add_argument("--database-username", required=True, help="Database usernam
 parser.add_argument("--database-password", required=True, help="Database password")
 parser.add_argument("--database-name", required=True, help="Database name")
 parser.add_argument("--oai-repository-id", required=True, help="OAI Repository ID (e.g., domain.com)")
-parser.add_argument("--url", required=True, help="url (e.g., domain.com/path)")
+parser.add_argument("--url", required=True, help="URL (e.g., domain.com/path)")
 args = parser.parse_args()
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     context = browser.new_context(ignore_https_errors=True)
     page = context.new_page()
-    
-    print("Navigating to the installation page...")
-    page.goto(f"https://{args.url}/index.php/index/install")
 
-    print("Waiting for the form to load...")
+    base_url = f"https://{args.url}/"
+    print(f"Navigating to base URL: {base_url}")
+    page.goto(base_url)
+
+    print("Waiting to be redirected to the installation page...")
+    page.wait_for_url("**/install", timeout=60000)
+
+    print("Waiting for the installation form to load...")
     page.wait_for_selector('select[name="installLanguage"]', state="visible", timeout=60000)
 
     print("Selecting the installation language...")
@@ -41,7 +45,6 @@ with sync_playwright() as p:
     print("Selecting the locale...")
     page.select_option('select[name="locale"]', value=args.locale)
 
-    print("Selecting the time zone...")
     print("Selecting the time zone...")
     try:
         page.select_option('select[name="timeZone"]', value=args.time_zone)
@@ -69,9 +72,8 @@ with sync_playwright() as p:
     print("Submitting the form...")
     try:
         page.wait_for_selector('button[name="submitFormButton"]', state="visible", timeout=60000)
-        
-        with page.expect_navigation():
-            page.click('button[name="submitFormButton"]', timeout=60000)
+        with page.expect_navigation(timeout=60000):
+            page.click('button[name="submitFormButton"]')
         print("Form submitted successfully.")
     except Exception as e:
         print(f"Error submitting the form: {e}")
