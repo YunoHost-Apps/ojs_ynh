@@ -30,6 +30,28 @@ with sync_playwright() as p:
     print("Waiting to be redirected to the installation page...")
     page.wait_for_url("**/install", timeout=60000)
 
+# Debug begin
+print("Current URL after redirection:", page.url)
+
+form_elements = page.query_selector_all("form input, form select, form textarea")
+print(f"Found {len(form_elements)} form elements:")
+
+for el in form_elements:
+    tag = el.evaluate("e => e.tagName.toLowerCase()")
+    name = el.get_attribute("name")
+    type_attr = el.get_attribute("type")
+    id_attr = el.get_attribute("id")
+    options = []
+
+    if tag == "select":
+        options = el.query_selector_all("option")
+        option_values = [opt.get_attribute("value") for opt in options]
+        print(f"  <select name='{name}' id='{id_attr}'> Options: {option_values}")
+    else:
+        print(f"  <{tag} name='{name}' id='{id_attr}' type='{type_attr}'>")
+
+# Debug end
+    
     print("Waiting for the installation form to load...")
     page.wait_for_selector('select[name="installLanguage"]', state="visible", timeout=60000)
 
