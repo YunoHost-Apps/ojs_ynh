@@ -7,7 +7,7 @@ name = "OJS"
 description.en = "Software to manage scholarly journals"
 description.fr = "Logiciel pour gérer des revues scientifiques"
 
-version = "3.4.0-8~ynh2"
+version = "3.5.0-0~ynh1"
 
 maintainers = ["DeMiro5001"]
 
@@ -194,8 +194,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://pkp.sfu.ca/ojs/download/ojs-3.4.0-8.tar.gz"
-    sha256 = "f0aa8cb271e12ee4ba4368942f799e95b80f55534813da95618629209f3fcf73"
+    url = "https://pkp.sfu.ca/ojs/download/ojs-3.5.0-0.tar.gz"
+    sha256 = "3ea48045ccc1995108cc28d4a9df6ee6d2bbdfd3726cf91a599a53c0d268635a"
 
     [resources.system_user]
     allow_email = true
@@ -209,7 +209,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server, php8.3-mysqli, php8.3-mbstring, php8.3-xml, php8.3-intl, poppler-utils, antiword, python3-venv"
+    packages = "mariadb-server, expect, php8.4-mysqli, php8.4-mbstring, php8.4-xml, php8.4-intl, php8.4-bcmath, php8.4-curl, php8.4-gd, php8.4-zip, poppler-utils, antiword, python3-venv"
 
     [resources.database]
     type = "mysql"
