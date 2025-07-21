@@ -319,11 +319,11 @@ sendmail_path = "/usr/sbin/sendmail -bs"
 
 ; SMTP server settings
 smtp_server = localhost
-smtp_port = 25
+smtp_port = 587
 
 ; Enable SMTP authentication
 ; Supported smtp_auth: ssl, tls (see PHPMailer SMTPSecure)
-; smtp_auth = ssl
+smtp_auth = tls
 smtp_username = __APP__
 smtp_password = __MAIL_PWD__
 
@@ -336,12 +336,12 @@ smtp_password = __MAIL_PWD__
 ; allow_envelope_sender = Off
 
 ; Default envelope sender to use if none is specified elsewhere
- default_envelope_sender = __APP__@__DOMAIN__
+default_envelope_sender = __MAIL_USER__@__DOMAIN__
 
 ; Force the default envelope sender (if present)
 ; This is useful if setting up a site-wide no-reply address
 ; The reply-to field will be set with the reply-to or from address.
-; force_default_envelope_sender = Off
+force_default_envelope_sender = On
 
 ; Force a DMARC compliant from header (RFC5322.From)
 ; If any of your users have email addresses in domains not under your control
