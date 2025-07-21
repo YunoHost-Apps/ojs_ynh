@@ -318,7 +318,7 @@ sendmail_path = "/usr/sbin/sendmail -bs"
  smtp = On
 
 ; SMTP server settings
-smtp_server = localhost
+smtp_server = "__DOMAIN__"
 smtp_port = 587
 
 ; Enable SMTP authentication
