@@ -95,9 +95,9 @@ with sync_playwright() as p:
 
     print("Submitting the form...")
     try:
-        page.wait_for_selector('button[name="submitFormButton"]', state="visible", timeout=60000)
+        page.wait_for_selector('button[name="submitFormButton"]', state="visible", timeout=360000)
         with page.expect_navigation(timeout=60000):
-            page.click('button[name="submitFormButton"]' , timeout=60000)
+            page.click('button[name="submitFormButton"]' , timeout=360000)
         print("Form submitted successfully.")
     except Exception as e:
         print(f"Error submitting the form: {e}")
