@@ -17,8 +17,8 @@ ynh_script_progression "Upgrading source files..."
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php public locale plugins"
 
 pushd $install_dir
-  php$phpversion tools/upgrade.php check
-  php$phpversion -d memory_limit=2048M tools/upgrade.php upgrade
+  php8.4 tools/upgrade.php check
+  php8.4 -d memory_limit=2048M tools/upgrade.php upgrade
 popd
 
 #=================================================
