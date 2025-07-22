@@ -15,20 +15,48 @@ parser.add_argument("--database-username", required=True, help="Database usernam
 parser.add_argument("--database-password", required=True, help="Database password")
 parser.add_argument("--database-name", required=True, help="Database name")
 parser.add_argument("--oai-repository-id", required=True, help="OAI Repository ID (e.g., domain.com)")
-parser.add_argument("--url", required=True, help="url (e.g., domain.com/path)")
+parser.add_argument("--url", required=True, help="URL (e.g., domain.com/path)")
 args = parser.parse_args()
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     context = browser.new_context(ignore_https_errors=True)
     page = context.new_page()
+
+    base_url = f"https://{args.url}/"
+    print(f"Navigating to base URL: {base_url}")
+    page.goto(base_url)
+
+    print("Waiting to be redirected to the installation page...")
+    page.wait_for_url("**/install", timeout=60000)
+
+    print("Waiting for the installation form to load...")
+    page.wait_for_selector('select[name="installLanguage"]', state="visible", timeout=360000)
+
+    """
+    # Debug begin
+    print("Current URL after redirection:", page.url)
     
-    print("Navigating to the installation page...")
-    page.goto(f"https://{args.url}/index.php/index/install")
+    form_elements = page.query_selector_all("form input, form select, form textarea")
+    print(f"Found {len(form_elements)} form elements:")
+    
+    for el in form_elements:
+        tag = el.evaluate("e => e.tagName.toLowerCase()")
+        name = el.get_attribute("name")
+        type_attr = el.get_attribute("type")
+        id_attr = el.get_attribute("id")
+        options = []
+    
+        if tag == "select":
+            options = el.query_selector_all("option")
+            option_values = [opt.get_attribute("value") for opt in options]
+            print(f"  <select name='{name}' id='{id_attr}'> Options: {option_values}")
+        else:
+            print(f"  <{tag} name='{name}' id='{id_attr}' type='{type_attr}'>")
 
-    print("Waiting for the form to load...")
-    page.wait_for_selector('select[name="installLanguage"]', state="visible", timeout=60000)
-
+    # Debug end
+    """
+    
     print("Selecting the installation language...")
     page.select_option('select[name="installLanguage"]', value=args.install_language)
 
@@ -41,7 +69,6 @@ with sync_playwright() as p:
     print("Selecting the locale...")
     page.select_option('select[name="locale"]', value=args.locale)
 
-    print("Selecting the time zone...")
     print("Selecting the time zone...")
     try:
         page.select_option('select[name="timeZone"]', value=args.time_zone)
@@ -69,9 +96,8 @@ with sync_playwright() as p:
     print("Submitting the form...")
     try:
         page.wait_for_selector('button[name="submitFormButton"]', state="visible", timeout=60000)
-        
-        with page.expect_navigation():
-            page.click('button[name="submitFormButton"]', timeout=60000)
+        with page.expect_navigation(timeout=60000):
+            page.click('button[name="submitFormButton"]' , timeout=60000)
         print("Form submitted successfully.")
     except Exception as e:
         print(f"Error submitting the form: {e}")
