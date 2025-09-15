@@ -1,1 +1,1 @@
-5 * * * * __APP__ /usr/bin/php__PHP_VERSION__ __INSTALL_DIR__/tools/runScheduledTasks.php > /dev/null
+5 * * * * __APP__ /usr/bin/php__PHP_VERSION__ __INSTALL_DIR__/lib/pkp/tools/scheduler.php run > /dev/null
