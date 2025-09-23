@@ -9,17 +9,25 @@ source /usr/share/yunohost/helpers
 
 #ynh_app_setting_set_default --key=mail_user‎ --value=noreply
 
-if [[ "$mail_user" != "noreply" && "$mail_user" != "contact" ]]; then
+if [[ "${mail_user:-}" != "noreply" && "${mail_user:-}" != "contact" ]]; then
     mail_user="noreply"
     ynh_app_setting_set --key=mail_user --value="noreply" 
 fi
+
+salt=$(ynh_app_setting_get --app=$app --key=salt)
+api_key_secret=$(ynh_app_setting_get --app=$app --key=api_key_secret)
+app_key=$(ynh_app_setting_get --app=$app --key=app_key)
+language=$(ynh_app_setting_get --app=$app --key=language)
+timezone=$(ynh_app_setting_get --app=$app --key=timezone)
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php public locale plugins"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php public"
+
+ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
 
 pushd $install_dir
   php8.4 tools/upgrade.php check
