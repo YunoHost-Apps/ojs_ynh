@@ -7,7 +7,7 @@ name = "OJS"
 description.en = "Software to manage scholarly journals"
 description.fr = "Logiciel pour gérer des revues scientifiques"
 
-version = "3.5.0-0~ynh2"
+version = "3.5.0-1~ynh1"
 
 maintainers = ["DeMiro5001"]
 
@@ -202,8 +202,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://pkp.sfu.ca/ojs/download/ojs-3.5.0-0.tar.gz"
-    sha256 = "3ea48045ccc1995108cc28d4a9df6ee6d2bbdfd3726cf91a599a53c0d268635a"
+    url = "https://pkp.sfu.ca/ojs/download/ojs-3.5.0-1.tar.gz"
+    sha256 = "78e423421310951cfb290c3856f85aa014ff0fe3d3c02d200d6a65984951b124"
 
     [resources.system_user]
     allow_email = true
