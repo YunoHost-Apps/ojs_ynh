@@ -333,7 +333,7 @@ smtp_password = __MAIL_PWD__
 
 ; Allow envelope sender to be specified
 ; (may not be possible with some server configurations)
-; allow_envelope_sender = Off
+allow_envelope_sender = Off
 
 ; Default envelope sender to use if none is specified elsewhere
 default_envelope_sender = __MAIL_USER__@__DOMAIN__
