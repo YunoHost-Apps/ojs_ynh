@@ -29,10 +29,18 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php
 
 ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
 
+ynh_replace --match="installed = Off" --replace="installed = On" --file="$install_dir/config.inc.php"
+
+ynh_store_file_checksum "$install_dir/config.inc.php"
+
+chown -R "$app:www-data" "$install_dir"
+
 pushd $install_dir
   php8.4 tools/upgrade.php check
   php8.4 -d memory_limit=2048M tools/upgrade.php upgrade
 popd
+
+chown -R "$app:www-data" "$install_dir"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS

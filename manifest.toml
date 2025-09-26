@@ -7,7 +7,7 @@ name = "OJS"
 description.en = "Software to manage scholarly journals"
 description.fr = "Logiciel pour gérer des revues scientifiques"
 
-version = "3.5.0-1~ynh1"
+version = "3.5.0-1~ynh2"
 
 maintainers = ["DeMiro5001"]
 
@@ -36,6 +36,10 @@ ram.runtime = "50M"
 
     [install.domain]
     type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/ojs"
 
     [install.init_main_permission]
     type = "group"
