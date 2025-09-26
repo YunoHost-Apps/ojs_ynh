@@ -44,7 +44,7 @@ python3 ojs.py \
     --database-password "$db_pwd" \
     --database-name "$db_name" \
     --oai-repository-id "$domain" \
-    --url "$domain"
+    --url "$domain$path"
 
 deactivate
 ynh_safe_rm ojs_install
