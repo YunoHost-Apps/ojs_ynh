@@ -40,6 +40,8 @@ pushd $install_dir
   php8.4 -d memory_limit=2048M tools/upgrade.php upgrade
 popd
 
+chown -R "$app:www-data" "$install_dir"
+
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
