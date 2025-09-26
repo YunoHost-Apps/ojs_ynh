@@ -33,6 +33,8 @@ ynh_replace --match="installed = Off" --replace="installed = On" --file="$instal
 
 ynh_store_file_checksum "$install_dir/config.inc.php"
 
+chown -R "$app:www-data" "$install_dir"
+
 pushd $install_dir
   php8.4 tools/upgrade.php check
   php8.4 -d memory_limit=2048M tools/upgrade.php upgrade
