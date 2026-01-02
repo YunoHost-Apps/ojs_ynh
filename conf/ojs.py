@@ -23,6 +23,7 @@ with sync_playwright() as p:
     context = browser.new_context(ignore_https_errors=True)
     page = context.new_page()
 
+    page.set_default_navigation_timeout(60000)
     base_url = f"https://{args.url}/"
     print(f"Navigating to base URL: {base_url}")
     page.goto(base_url)
@@ -112,3 +113,4 @@ with sync_playwright() as p:
     browser.close()
 
 print("Script finished.")
+
