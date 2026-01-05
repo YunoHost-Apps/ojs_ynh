@@ -45,9 +45,13 @@ ynh_script_progression "Adding app's configuration file..."
 path="${path%/}"
 
 ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
+cp ../conf/unattended_install.php $install_dir/tools/unattended_install.php
 
 chmod 600 "$install_dir/config.inc.php"
+chmod 600 "$install_dir/tools/unattended_install.php"
+
 chown "$app:www-data" "$install_dir/config.inc.php"
+chown "$app:www-data" "$install_dir/tools/unattended_install.php"
 
 ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
@@ -57,9 +61,28 @@ ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
 ynh_script_progression "Installing $app. This can take a while"
 
-ojs_install
+ynh_hide_warnings ynh_exec_as_app OJS_LOCALE="$language" \
+    OJS_BASE_URL="$domain$path" \
+    OJS_TIMEZONE="$timezone" \
+    OJS_FILES_DIR="$data_dir" \
+    OJS_ADMIN_USER="$admin" \
+    OJS_ADMIN_PASS="$password" \
+    OJS_ADMIN_EMAIL="$admin_mail" \
+    OJS_DB_DRIVER="mysqli" \
+    OJS_DB_HOST="localhost" \
+    OJS_DB_USER="$db_user" \
+    OJS_DB_PASS="$db_pwd" \
+    OJS_DB_NAME="$db_name" \
+    OJS_DB_CREATE="false" \
+    OJS_OAI_ID="$domain" \
+    php$php_version "$install_dir/tools/unattended_install.php"
 
 ynh_store_file_checksum "$install_dir/config.inc.php"
+ynh_hide_warnings ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
+ynh_replace --match="installed = Off" --replace="installed = On" --file="$install_dir/config.inc.php"
+ynh_store_file_checksum "$install_dir/config.inc.php"
+
+ynh_safe_rm "$install_dir/tools/unattended_install.php"
  
 #=================================================
 # END OF SCRIPT
