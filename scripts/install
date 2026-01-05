@@ -48,10 +48,10 @@ ynh_config_add --template="config.inc.php" --destination="$install_dir/config.in
 cp ../conf/unattended_install.php $install_dir/tools/unattended_install.php
 
 chmod 600 "$install_dir/config.inc.php"
-chmod 600 "$install_dir/unattended_install.php"
+chmod 600 "$install_dir/tools/unattended_install.php"
 
 chown "$app:www-data" "$install_dir/config.inc.php"
-chown "$app:www-data" "$install_dir/unattended_install.php"
+chown "$app:www-data" "$install_dir/tools/unattended_install.php"
 
 ynh_config_add --template=".cron" --destination="/etc/cron.d/$app"
 
