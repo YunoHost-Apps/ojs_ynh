@@ -75,7 +75,7 @@ ynh_exec_as_app OJS_LOCALE="$language" \
     OJS_DB_NAME="$db_name" \
     OJS_DB_CREATE="false" \
     OJS_OAI_ID="$domain" \
-    php "$install_dir/unattended_install.php"
+    php8.4 "$install_dir/unattended_install.php"
 
 ynh_store_file_checksum "$install_dir/config.inc.php"
 
