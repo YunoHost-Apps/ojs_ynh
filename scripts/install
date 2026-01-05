@@ -45,7 +45,7 @@ ynh_script_progression "Adding app's configuration file..."
 path="${path%/}"
 
 ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
-cp ../conf/unattended_install.php $install_dir/unattended_install.php
+cp ../conf/unattended_install.php $install_dir/tools/unattended_install.php
 
 chmod 600 "$install_dir/config.inc.php"
 chmod 600 "$install_dir/unattended_install.php"
@@ -75,7 +75,7 @@ ynh_exec_as_app OJS_LOCALE="$language" \
     OJS_DB_NAME="$db_name" \
     OJS_DB_CREATE="false" \
     OJS_OAI_ID="$domain" \
-    php8.4 "$install_dir/unattended_install.php"
+    php$php_version "$install_dir/tools/unattended_install.php"
 
 ynh_store_file_checksum "$install_dir/config.inc.php"
 
