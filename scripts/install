@@ -78,6 +78,8 @@ ynh_exec_as_app OJS_LOCALE="$language" \
     php "$install_dir/unattended_install.php"
 
 ynh_store_file_checksum "$install_dir/config.inc.php"
+
+ynh_safe_rm "$install_dir/unattended_install.php"
  
 #=================================================
 # END OF SCRIPT
