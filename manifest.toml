@@ -7,7 +7,7 @@ name = "OJS"
 description.en = "Software to manage scholarly journals"
 description.fr = "Logiciel pour gérer des revues scientifiques"
 
-version = "3.5.0-1~ynh3"
+version = "3.5.0-1~ynh4"
 
 maintainers = ["DeMiro5001"]
 
@@ -221,7 +221,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server, expect, php8.4-mysqli, php8.4-mbstring, php8.4-xml, php8.4-intl, php8.4-bcmath, php8.4-curl, php8.4-gd, php8.4-zip, poppler-utils, antiword, python3-venv"
+    packages = "mariadb-server, expect, php8.2, php8.2-cli, php8.2-mysqli, php8.2-mbstring, php8.2-xml, php8.2-intl, php8.2-bcmath, php8.2-curl, php8.2-gd, php8.2-zip, poppler-utils, antiword, python3-venv"
 
     [resources.database]
     type = "mysql"

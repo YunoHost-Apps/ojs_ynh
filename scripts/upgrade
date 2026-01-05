@@ -21,11 +21,79 @@ language=$(ynh_app_setting_get --app=$app --key=language)
 timezone=$(ynh_app_setting_get --app=$app --key=timezone)
 
 #=================================================
+# Check installed plugins and compare them to the core list
+#=================================================
+ynh_script_progression "Checking plugins folder for non core plugins..."
+
+core_plugins="
+plugins/blocks/browse
+plugins/blocks/developedBy
+plugins/blocks/information
+plugins/blocks/languageToggle
+plugins/blocks/makeSubmission
+plugins/blocks/subscription
+plugins/gateways
+plugins/generic/announcementFeed
+plugins/generic/citationStyleLanguage
+plugins/generic/credit
+plugins/generic/crossref
+plugins/generic/customBlockManager
+plugins/generic/datacite
+plugins/generic/driver
+plugins/generic/dublinCoreMeta
+plugins/generic/googleAnalytics
+plugins/generic/googleScholar
+plugins/generic/htmlArticleGalley
+plugins/generic/jatsTemplate
+plugins/generic/lensGalley
+plugins/generic/pdfJsViewer
+plugins/generic/recommendByAuthor
+plugins/generic/recommendBySimilarity
+plugins/generic/staticPages
+plugins/generic/tinymce
+plugins/generic/usageEvent
+plugins/generic/webFeed
+plugins/importexport/doaj
+plugins/importexport/native
+plugins/importexport/pubmed
+plugins/importexport/users
+plugins/metadata/dc11
+plugins/oaiMetadataFormats/dc
+plugins/oaiMetadataFormats/marc
+plugins/oaiMetadataFormats/marcxml
+plugins/oaiMetadataFormats/oaiJats
+plugins/oaiMetadataFormats/rfc1807
+plugins/paymethod/manual
+plugins/paymethod/paypal
+plugins/pubIds/urn
+plugins/reports/articles
+plugins/reports/counter
+plugins/reports/reviewReport
+plugins/reports/subscriptions
+plugins/themes/default
+"
+extra_plugins=""
+
+pushd "$install_dir"
+
+for plugin_path in plugins/*/*; do
+    if [ -d "$plugin_path" ]; then
+        if [[ "$core_plugins" != *"$plugin_path"* ]]; then
+            extra_plugins="$extra_plugins $plugin_path"
+ 
+            echo "Keeping custom plugin: $plugin_path"
+        fi
+    fi
+done
+
+popd
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php public"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config.inc.php public $extra_plugins"
 
 ynh_config_add --template="config.inc.php" --destination="$install_dir/config.inc.php"
 
@@ -36,8 +104,8 @@ ynh_store_file_checksum "$install_dir/config.inc.php"
 chown -R "$app:www-data" "$install_dir"
 
 pushd $install_dir
-  php8.4 tools/upgrade.php check
-  php8.4 -d memory_limit=2048M tools/upgrade.php upgrade
+  php$php_version tools/upgrade.php check
+  php$php_version -d memory_limit=2048M tools/upgrade.php upgrade
 popd
 
 chown -R "$app:www-data" "$install_dir"
