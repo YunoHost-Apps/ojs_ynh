@@ -1,0 +1,193 @@
+name: Check Upstream Config Changes
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  compare-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install Packaging Lib
+        run: pip install packaging
+
+      - name: Determine Latest OJS Version
+        id: get_version
+        run: |
+          LATEST_TAG=$(curl -sL "https://api.github.com/repos/pkp/ojs/tags?per_page=100" \
+            | python3 -c "
+          import sys, json, re
+          from packaging.version import parse
+          try:
+              tags = json.load(sys.stdin)
+              valid_tags = []
+              tag_map = {}
+              for t in tags:
+                  name = t['name']
+                  m = re.search(r'(?:ojs-)?(3[._]\d+[._]\d+[-_]\d+)', name)
+                  if m:
+                      version_str = m.group(1).replace('_', '.').replace('-', '.')
+                      valid_tags.append(version_str)
+                      tag_map[version_str] = name
+              if not valid_tags:
+                  print('stable-3_4_0')
+                  sys.exit(0)
+              valid_tags.sort(key=parse, reverse=True)
+              print(tag_map[valid_tags[0]])
+          except Exception:
+              print('stable-3_4_0')
+          ")
+          echo "Detected latest tag: $LATEST_TAG"
+          echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Fetch Upstream Config
+        env:
+          TAG: ${{ steps.get_version.outputs.tag }}
+        run: |
+          echo "Downloading config template for tag: $TAG"
+          curl -sSL "https://raw.githubusercontent.com/pkp/ojs/$TAG/config.TEMPLATE.inc.php" -o upstream.config.php
+
+      - name: Run Comparison Script
+        id: check_diff
+        shell: python
+        env:
+          TAG: ${{ steps.get_version.outputs.tag }} 
+        run: |
+          import configparser
+          import sys
+          import os
+          import re
+
+          # --- CONFIGURATION ---
+          LOCAL_FILE = 'conf/config.inc.php'
+          UPSTREAM_FILE = 'upstream.config.php'
+          IGNORED_SECTIONS = [] 
+          # ---------------------
+
+          def load_ini(filepath):
+              config = configparser.ConfigParser(strict=False, allow_no_value=True)
+              config.optionxform = str
+              try:
+                  config.read(filepath)
+              except Exception as e:
+                  print(f"Error reading {filepath}: {e}")
+                  sys.exit(1)
+              return config
+
+          if not os.path.exists(LOCAL_FILE):
+              print(f"::error::Local file {LOCAL_FILE} not found!")
+              sys.exit(1)
+
+          local_cfg = load_ini(LOCAL_FILE)
+          upstream_cfg = load_ini(UPSTREAM_FILE)
+
+          # Read raw upstream content for regex checking
+          with open(UPSTREAM_FILE, 'r') as f:
+              upstream_raw = f.read()
+
+          missing_sections = []
+          missing_keys = []
+          deprecated_keys = []
+
+          # 1. Check for NEW items (Upstream has it, Local doesn't)
+          for section in upstream_cfg.sections():
+              if section in IGNORED_SECTIONS: continue
+              
+              if not local_cfg.has_section(section):
+                  missing_sections.append(section)
+                  continue
+              
+              for key in upstream_cfg.options(section):
+                  if not local_cfg.has_option(section, key):
+                      missing_keys.append(f"[{section}] {key}")
+
+          # 2. Check for DEPRECATED items (Local has it, Upstream doesn't)
+          for section in local_cfg.sections():
+              if section in IGNORED_SECTIONS: continue
+
+              # Helper to check if key exists in raw file (commented or not)
+              def key_exists_in_raw(key_name):
+                  # Regex looks for: start of line, optional space, optional semicolon, key, equals
+                  # e.g. matches "; smtp_server =" or "smtp_server ="
+                  pattern = r"^\s*;?\s*" + re.escape(key_name) + r"\s*="
+                  return re.search(pattern, upstream_raw, re.MULTILINE) is not None
+
+              if not upstream_cfg.has_section(section):
+                  # Even if section is missing from active config, check raw text
+                  # (Though typically if section is gone, keys are gone too, but let's be safe)
+                  for key in local_cfg.options(section):
+                       if not key_exists_in_raw(key):
+                           deprecated_keys.append(f"[{section}] {key} (Section removed)")
+                  continue
+
+              for key in local_cfg.options(section):
+                  # If key is not in active upstream config...
+                  if not upstream_cfg.has_option(section, key):
+                      # ...CHECK RAW TEXT before declaring it deprecated
+                      if not key_exists_in_raw(key):
+                          deprecated_keys.append(f"[{section}] {key}")
+
+          # 3. Generate Report
+          if missing_sections or missing_keys or deprecated_keys:
+              tag_name = os.environ.get('TAG', 'unknown')
+              report = f"### ℹ️ Upstream Config Changes Detected ({tag_name})\n\n"
+              
+              if missing_sections or missing_keys:
+                  report += "**Missing Keys (New in Upstream):**\n"
+                  if missing_sections:
+                      for s in missing_sections: report += f"- `[{s}]` (Entire Section)\n"
+                  for k in missing_keys:
+                      report += f"- `{k}`\n"
+                  report += "\n"
+
+              if deprecated_keys:
+                  report += "**Deprecated Keys (Removed from Upstream):**\n"
+                  report += "> *These keys exist in your local file but seem to be completely removed from the upstream template.*\n"
+                  for k in deprecated_keys:
+                      report += f"- `{k}`\n"
+              
+              delimiter = "EOF"
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write(f"comment<<{delimiter}\n{report}\n{delimiter}\n")
+                  f.write("has_changes=true\n")
+          else:
+              print("Configs match perfectly.")
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write("has_changes=false\n")
+
+      - name: Post Comment on PR
+        if: steps.check_diff.outputs.has_changes == 'true'
+        uses: actions/github-script@v6
+        env:
+          COMMENT_BODY: ${{ steps.check_diff.outputs.comment }}
+        with:
+          script: |
+            const output = process.env.COMMENT_BODY;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const botComment = comments.find(c => c.body.includes('Upstream Config Changes Detected'));
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner, repo: context.repo.repo, comment_id: botComment.id, body: output
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number, owner: context.repo.owner, repo: context.repo.repo, body: output
+              });
+            }
