@@ -1,0 +1,245 @@
+name: Check Upstream Config Changes
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  compare-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install Packaging Lib
+        run: pip install packaging
+
+      - name: Determine Latest OJS Version
+        id: get_version
+        run: |
+          LATEST_TAG=$(curl -sL "https://api.github.com/repos/pkp/ojs/tags?per_page=100" \
+            | python3 -c "
+          import sys, json, re
+          from packaging.version import parse
+          try:
+              tags = json.load(sys.stdin)
+              valid_tags = []
+              tag_map = {}
+              for t in tags:
+                  name = t['name']
+                  m = re.search(r'(?:ojs-)?(3[._]\d+[._]\d+[-_]\d+)', name)
+                  if m:
+                      version_str = m.group(1).replace('_', '.').replace('-', '.')
+                      valid_tags.append(version_str)
+                      tag_map[version_str] = name
+              if not valid_tags:
+                  print('stable-3_4_0')
+                  sys.exit(0)
+              valid_tags.sort(key=parse, reverse=True)
+              print(tag_map[valid_tags[0]])
+          except Exception:
+              print('stable-3_4_0')
+          ")
+          echo "Detected latest tag: $LATEST_TAG"
+          echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Fetch Upstream Config
+        env:
+          TAG: ${{ steps.get_version.outputs.tag }}
+        run: |
+          echo "Downloading config template for tag: $TAG"
+          curl -sSL "https://raw.githubusercontent.com/pkp/ojs/$TAG/config.TEMPLATE.inc.php" -o upstream.config.php
+
+      - name: Run Comparison Script
+        id: check_diff
+        shell: python
+        env:
+          TAG: ${{ steps.get_version.outputs.tag }} 
+        run: |
+          import configparser
+          import sys
+          import os
+          import re
+
+          # --- CONFIGURATION ---
+          LOCAL_FILE = 'conf/config.inc.php'
+          UPSTREAM_FILE = 'upstream.config.php'
+          IGNORED_SECTIONS = [] 
+          # ---------------------
+
+          def load_ini(filepath):
+              config = configparser.ConfigParser(strict=False, allow_no_value=True)
+              config.optionxform = str
+              try:
+                  config.read(filepath)
+              except Exception as e:
+                  print(f"Error reading {filepath}: {e}")
+                  sys.exit(1)
+              return config
+
+          if not os.path.exists(LOCAL_FILE):
+              print(f"::error::Local file {LOCAL_FILE} not found!")
+              sys.exit(1)
+
+          local_cfg = load_ini(LOCAL_FILE)
+          upstream_cfg = load_ini(UPSTREAM_FILE)
+
+          # Read raw upstream content for context extraction
+          with open(UPSTREAM_FILE, 'r') as f:
+              upstream_lines = f.readlines()
+              upstream_raw = "".join(upstream_lines)
+
+          # --- HELPER: Extract comments and raw line for a key ---
+          def get_key_context(target_section, target_key):
+              current_section = None
+              for i, line in enumerate(upstream_lines):
+                  stripped = line.strip()
+                  # Detect section header
+                  if stripped.startswith('[') and stripped.endswith(']'):
+                      current_section = stripped[1:-1]
+                      continue
+                  
+                  # If we are in the right section, look for the key
+                  if current_section == target_section:
+                      # Regex: Start of line, optional whitespace, key, whitespace, equals
+                      if re.match(r'^\s*' + re.escape(target_key) + r'\s*=', line):
+                          # Found the key line! Now look backwards for comments.
+                          comments = []
+                          j = i - 1
+                          while j >= 0:
+                              prev = upstream_lines[j]
+                              if prev.strip().startswith(';'):
+                                  comments.insert(0, prev.rstrip())
+                              elif not prev.strip():
+                                  # Stop at blank line (end of comment block)
+                                  break 
+                              else:
+                                  # Stop if we hit another key or section
+                                  break
+                              j -= 1
+                          
+                          # Return (list of comment lines, the raw key line)
+                          return comments, line.rstrip()
+              return [], f"{target_key} ="
+
+          missing_sections = []
+          # Dictionary to hold missing keys grouped by section: { 'section': [text_block, text_block] }
+          missing_keys_grouped = {} 
+          deprecated_keys = []
+
+          # 1. Check for NEW items
+          for section in upstream_cfg.sections():
+              if section in IGNORED_SECTIONS: continue
+              
+              if not local_cfg.has_section(section):
+                  missing_sections.append(section)
+                  # If whole section is missing, we could list all keys, 
+                  # but usually just flagging the section is enough.
+                  continue
+              
+              for key in upstream_cfg.options(section):
+                  if not local_cfg.has_option(section, key):
+                      # Extract the raw context
+                      comments, raw_line = get_key_context(section, key)
+                      
+                      # Format the block
+                      block = ""
+                      for c in comments:
+                          block += f"{c}\n"
+                      block += f"{raw_line}"
+                      
+                      if section not in missing_keys_grouped:
+                          missing_keys_grouped[section] = []
+                      missing_keys_grouped[section].append(block)
+
+          # 2. Check for DEPRECATED items
+          # Helper for raw check
+          def key_exists_in_raw(key_name):
+              pattern = r"^\s*;?\s*" + re.escape(key_name) + r"\s*="
+              return re.search(pattern, upstream_raw, re.MULTILINE) is not None
+
+          for section in local_cfg.sections():
+              if section in IGNORED_SECTIONS: continue
+
+              if not upstream_cfg.has_section(section):
+                   # Check if section header exists in raw even if commented out
+                   if f"[{section}]" not in upstream_raw:
+                       for key in local_cfg.options(section):
+                            deprecated_keys.append(f"[{section}] {key} (Section removed)")
+                   continue
+
+              for key in local_cfg.options(section):
+                  if not upstream_cfg.has_option(section, key):
+                      if not key_exists_in_raw(key):
+                          deprecated_keys.append(f"[{section}] {key}")
+
+          # 3. Generate Report
+          if missing_sections or missing_keys_grouped or deprecated_keys:
+              tag_name = os.environ.get('TAG', 'unknown')
+              report = f"### ⚠️ Upstream Config Changes Detected ({tag_name})\n\n"
+              
+              if missing_sections:
+                  report += "**Missing Sections (New in Upstream):**\n"
+                  for s in missing_sections:
+                      report += f"- `[{s}]`\n"
+                  report += "\n"
+
+              if missing_keys_grouped:
+                  report += "**Missing Keys (New in Upstream):**\n"
+                  report += "Below are the missing keys with their original comments and default values.\n\n"
+                  
+                  for section, blocks in missing_keys_grouped.items():
+                      report += f"**Section `[{section}]`**\n"
+                      report += "```ini\n"
+                      for block in blocks:
+                          report += f"{block}\n\n"
+                      report += "```\n"
+
+              if deprecated_keys:
+                  report += "**Deprecated Keys (Removed from Upstream):**\n"
+                  report += "> *These keys exist in your local file but seem to be completely removed from the upstream template.*\n"
+                  for k in deprecated_keys:
+                      report += f"- `{k}`\n"
+              
+              delimiter = "EOF"
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write(f"comment<<{delimiter}\n{report}\n{delimiter}\n")
+                  f.write("has_changes=true\n")
+          else:
+              print("Configs match perfectly.")
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write("has_changes=false\n")
+
+      - name: Post Comment on PR
+        if: steps.check_diff.outputs.has_changes == 'true'
+        uses: actions/github-script@v6
+        env:
+          COMMENT_BODY: ${{ steps.check_diff.outputs.comment }}
+        with:
+          script: |
+            const output = process.env.COMMENT_BODY;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const botComment = comments.find(c => c.body.includes('Upstream Config Changes Detected'));
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner, repo: context.repo.repo, comment_id: botComment.id, body: output
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number, owner: context.repo.owner, repo: context.repo.repo, body: output
+              });
+            }
