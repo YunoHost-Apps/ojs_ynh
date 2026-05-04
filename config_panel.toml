@@ -1,0 +1,37 @@
+version = "1.0"
+
+[main]
+name.en = "OJS configuration"
+name.fr = "Configuration d'OJS"
+
+    [main.config]
+    name.en = "Configuration Options"
+    name.fr = "Options de configuration"
+
+        [main.config.altcha]
+        ask.en = "Enable / Disable Altcha"
+        ask.fr = "Activer / Désactiver Altcha"
+        type = "select"
+        choices = [ "on", "off" ]
+
+        [main.config.altcha_hmackey]
+        ask.en = "Hmackey for Altcha"
+        ask.fr = "Hmackey pour Altcha"
+        type = "string"
+
+        [main.config.recaptcha]
+        ask.en = "Enable / Disable recaptcha"
+        ask.fr = "Activer / Désactiver recaptcha"
+        type = "select"
+        choices = [ "on", "off" ]
+
+        [main.config.recaptcha_public]
+        ask.en = "Hmackey for recaptcha"
+        ask.fr = "Hmackey pour recaptcha"
+        type = "string"
+        
+        [main.config.recaptcha_private]
+        ask.en = "Hmackey for recaptcha"
+        ask.fr = "Hmackey pour recaptcha"
+        type = "string"
+        
