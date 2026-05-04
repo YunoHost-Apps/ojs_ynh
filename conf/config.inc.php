@@ -437,13 +437,13 @@ page_links = 10
 [captcha]
 
 ; Whether or not to enable ReCaptcha
-recaptcha = off
+recaptcha = __RECAPTCHA__
 
 ; Public key for reCaptcha (see http://www.google.com/recaptcha)
-recaptcha_public_key = your_public_key
+recaptcha_public_key = __RECAPTCHA_PUBLIC__
 
 ; Private key for reCaptcha (see http://www.google.com/recaptcha)
-recaptcha_private_key = your_private_key
+recaptcha_private_key = __RECAPTCHA_PRIVATE__
 
 ; Whether or not to use Captcha on user registration
 captcha_on_register = on
