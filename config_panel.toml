@@ -26,12 +26,12 @@ name.fr = "Configuration d'OJS"
         choices = [ "on", "off" ]
 
         [main.config.recaptcha_public]
-        ask.en = "Hmackey for recaptcha"
-        ask.fr = "Hmackey pour recaptcha"
+        ask.en = "Public key for recaptcha"
+        ask.fr = "Clé publique pour recaptcha"
         type = "string"
         
         [main.config.recaptcha_private]
-        ask.en = "Hmackey for recaptcha"
-        ask.fr = "Hmackey pour recaptcha"
+        ask.en = "Private key for recaptcha"
+        ask.fr = "Clé privée pour recaptcha"
         type = "string"
         
