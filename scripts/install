@@ -23,6 +23,18 @@ timezone_formatted=$(format_timezone "$timezone")
 altcha=off
 ynh_app_setting_set --key=altcha --value=$altcha
 
+altcha_hmackey=""
+ynh_app_setting_set --key=altcha_hmackey --value=$altcha_hmackey
+
+recaptcha=off
+ynh_app_setting_set --key=recaptcha --value=$recaptcha
+
+recaptcha_public=""
+ynh_app_setting_set --key=recaptcha_public --value=$recaptcha_public
+
+recaptcha_private=""
+ynh_app_setting_set --key=recaptcha_private --value=$recaptcha_private
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
