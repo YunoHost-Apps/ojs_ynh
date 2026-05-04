@@ -455,7 +455,7 @@ captcha_on_login = on
 recaptcha_enforce_hostname = Off
 
 ; Whether or not to enable ALTCHA
-altcha = off
+altcha = __ALTCHA__
 
 ; Private key for ALTCHA
 altcha_hmackey = '__APP_KEY__'
