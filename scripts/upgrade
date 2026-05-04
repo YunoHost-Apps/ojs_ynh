@@ -14,10 +14,11 @@ if [[ "${mail_user:-}" != "noreply" && "${mail_user:-}" != "contact" ]]; then
     ynh_app_setting_set --key=mail_user --value="noreply" 
 fi
 
-if [[ "${altcha:-}" != "on" && "${altcha:-}" != "off" ]]; then
-    altcha="off"
-    ynh_app_setting_set --key=altcha --value="off"
-fi
+ynh_app_setting_set_default --key=altcha --value="off"
+ynh_app_setting_set_default --key=altcha_hmackey --value=""
+ynh_app_setting_set_default --key=recaptcha --value="off"
+ynh_app_setting_set_default --key=recaptcha_public --value=""
+ynh_app_setting_set_default --key=recaptcha_private --value=""
 
 salt=$(ynh_app_setting_get --app=$app --key=salt)
 api_key_secret=$(ynh_app_setting_get --app=$app --key=api_key_secret)
