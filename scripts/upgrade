@@ -14,6 +14,11 @@ if [[ "${mail_user:-}" != "noreply" && "${mail_user:-}" != "contact" ]]; then
     ynh_app_setting_set --key=mail_user --value="noreply" 
 fi
 
+if [[ "${altcha:-}" != "on" && "${altcha:-}" != "off" ]]; then
+    altcha="off"
+    ynh_app_setting_set --key=altcha --value="off"
+fi
+
 salt=$(ynh_app_setting_get --app=$app --key=salt)
 api_key_secret=$(ynh_app_setting_get --app=$app --key=api_key_secret)
 app_key=$(ynh_app_setting_get --app=$app --key=app_key)
