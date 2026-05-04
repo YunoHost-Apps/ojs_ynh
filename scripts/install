@@ -20,6 +20,9 @@ ynh_app_setting_set --key=timezone --value=$timezone
 
 timezone_formatted=$(format_timezone "$timezone")
 
+altcha=off
+ynh_app_setting_set --key=altcha --value=$altcha
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
