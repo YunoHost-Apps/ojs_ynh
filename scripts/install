@@ -93,7 +93,7 @@ ynh_hide_warnings ynh_exec_as_app OJS_LOCALE="$language" \
     php$php_version "$install_dir/tools/unattended_install.php"
 
 pushd $install_dir
-    composer require altcha-org/altcha
+    ynh_composer_exec require altcha-org/altcha
 popd
 
 ynh_store_file_checksum "$install_dir/config.inc.php"
