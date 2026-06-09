@@ -351,14 +351,14 @@ force_default_envelope_sender = On
 ; from field wil be rewritten with the default_envelope_sender.
 ; To use this you must set force_default_enveloper_sender = On and
 ; default_envelope_sender must be set to a valid address in a domain you own.
-; force_dmarc_compliant_from = Off
+force_dmarc_compliant_from = On
 
 ; The display name to use with a DMARC compliant from header
 ; By default the DMARC compliant from will have an empty name but this can
 ; be changed by adding a text here.
 ; You can use '%n' to insert the users name from the original from header
 ; and '%s' to insert the localized sitename.
-; dmarc_compliant_from_displayname = '%n via %s'
+dmarc_compliant_from_displayname = '%n via %s'
 
 ; If enabled, email addresses must be validated before login is possible.
 require_validation = On
