@@ -70,7 +70,7 @@ admin_mail_enc=$(urlencode "$admin_mail")
 admin_pass_enc=$(urlencode "$password")
 db_pass_enc=$(urlencode "$db_pwd")
 
-ynh_local_curl "/index/install/install" \
+ynh_local_curl "/index.php/install/install" \
     "installing=0" \
     "adminUsername=$admin" \
     "adminPassword=$admin_pass_enc" \
