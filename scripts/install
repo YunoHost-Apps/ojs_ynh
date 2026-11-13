@@ -61,7 +61,8 @@ admin_mail_enc=$(urlencode "$admin_mail")
 admin_pass_enc=$(urlencode "$password")
 db_pass_enc=$(urlencode "$db_pwd")
 
-ynh_local_curl "/index.php/index/en/install" \
+ynh_local_curl "/index.php/index/$language/install/install" \
+    "installLanguage=$language" \
     "installing=0" \
     "adminUsername=$admin" \
     "adminPassword=$admin_pass_enc" \
@@ -69,9 +70,7 @@ ynh_local_curl "/index.php/index/en/install" \
     "adminEmail=$admin_mail_enc" \
     "locale=$language" \
     "additionalLocales%5B%5D=$locale" \
-    "clientCharset=utf-8" \
-    "connectionCharset=utf8" \
-    "databaseCharset=utf8" \
+    "timeZone=UTC" \
     "filesDir=$data_dir" \
     "databaseDriver=mysqli" \
     "databaseHost=localhost" \
