@@ -20,6 +20,14 @@ app_key=$(ynh_app_setting_get --app=$app --key=app_key)
 language=$(ynh_app_setting_get --app=$app --key=language)
 timezone=$(ynh_app_setting_get --app=$app --key=timezone)
 
+# Recaptcha
+ynh_app_setting_set_default --key=recaptcha  --value=off
+ynh_app_setting_set_default --key=recaptcha_public_key --value=""
+ynh_app_setting_set_default --key=recaptcha_private_key --value=""
+ynh_app_setting_set_default --key=captcha_on_register --value=on
+ynh_app_setting_set_default --key=captcha_on_login --value=on
+ynh_app_setting_set_default --key=recaptcha_enforce_hostname --value=On
+
 #=================================================
 # Check installed plugins and compare them to the core list
 #=================================================
