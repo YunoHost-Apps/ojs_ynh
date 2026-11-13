@@ -15,19 +15,19 @@ name.fr = "Configuration d'OJS"
         yes = "on"
         no = "off"
         default = "off"
-        bind = __INSTALL_DIR__/config.inc.php
+        bind = ":__INSTALL_DIR__/config.inc.php"
 
         [main.config.recaptcha_public_key]
         ask.en = "Recaptcha public key"
         ask.fr = "La clé publique de recaptcha"
         type = "password"
-        bind = __INSTALL_DIR__/config.inc.php
+        bind = ":__INSTALL_DIR__/config.inc.php"
 
         [main.config.recaptcha_private_key]
         ask.en = "Recaptcha private key"
         ask.fr = "La clé privée de recaptcha"
         type = "password"
-        bind = __INSTALL_DIR__/config.inc.php
+        bind = ":__INSTALL_DIR__/config.inc.php"
 
         [main.config.captcha_on_register]
         ask.en = "Enable recaptcha on register"
@@ -36,7 +36,7 @@ name.fr = "Configuration d'OJS"
         yes = "on"
         no = "off"
         default = "on"
-        bind = __INSTALL_DIR__/config.inc.php
+        bind = ":__INSTALL_DIR__/config.inc.php"
 
         [main.config.captcha_on_login]
         ask.en = "Enable recaptcha on login"
@@ -45,7 +45,7 @@ name.fr = "Configuration d'OJS"
         yes = "on"
         no = "off"
         default = "on"
-        bind = __INSTALL_DIR__/config.inc.php
+        bind = ":__INSTALL_DIR__/config.inc.php"
 
         [main.config.recaptcha_enforce_hostname]
         ask.en = "Enforce recaptcha hostname"
@@ -54,4 +54,4 @@ name.fr = "Configuration d'OJS"
         yes = "on"
         no = "off"
         default = "on"
-        bind = __INSTALL_DIR__/config.inc.php
+        bind = ":__INSTALL_DIR__/config.inc.php"
