@@ -20,6 +20,21 @@ ynh_app_setting_set --key=timezone --value=$timezone
 
 timezone_formatted=$(format_timezone "$timezone")
 
+# Recaptcha
+recaptcha=off
+ynh_app_setting_set --key=recaptcha --value=$recaptcha
+recaptcha_public_key=""
+ynh_app_setting_set --key=recaptcha_public_key --value=$recaptcha_public_key
+recaptcha_private_key=""
+ynh_app_setting_set --key=recaptcha_private_key --value=$recaptcha_private_key
+captcha_on_register=on
+ynh_app_setting_set --key=captcha_on_register --value=$captcha_on_register
+captcha_on_login=on
+ynh_app_setting_set --key=captcha_on_login --value=$captcha_on_login
+recaptcha_enforce_hostname=On
+ynh_app_setting_set --key=recaptcha_enforce_hostname --value=$recaptcha_enforce_hostname
+
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================

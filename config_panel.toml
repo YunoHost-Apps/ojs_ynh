@@ -1,0 +1,57 @@
+version = "1.0"
+
+[main]
+name.en = "OJS configuration"
+name.fr = "Configuration d'OJS"
+
+    [main.config]
+    name.en = "Configuration Options"
+    name.fr = "Options de configuration"
+
+        [main.config.recaptcha]
+        ask.en = "Enable recaptcha"
+        ask.fr = "Activer recaptcha"
+        type = "boolean"
+        yes = "on"
+        no = "off"
+        default = "off"
+        bind = ":__INSTALL_DIR__/config.inc.php"
+
+        [main.config.recaptcha_public_key]
+        ask.en = "Recaptcha public key"
+        ask.fr = "La clé publique de recaptcha"
+        type = "password"
+        bind = ":__INSTALL_DIR__/config.inc.php"
+
+        [main.config.recaptcha_private_key]
+        ask.en = "Recaptcha private key"
+        ask.fr = "La clé privée de recaptcha"
+        type = "password"
+        bind = ":__INSTALL_DIR__/config.inc.php"
+
+        [main.config.captcha_on_register]
+        ask.en = "Enable recaptcha on register"
+        ask.fr = "Activer recaptcha lors de l'enregistrement"
+        type = "boolean"
+        yes = "on"
+        no = "off"
+        default = "on"
+        bind = ":__INSTALL_DIR__/config.inc.php"
+
+        [main.config.captcha_on_login]
+        ask.en = "Enable recaptcha on login"
+        ask.fr = "Activer recaptcha au login"
+        type = "boolean"
+        yes = "on"
+        no = "off"
+        default = "on"
+        bind = ":__INSTALL_DIR__/config.inc.php"
+
+        [main.config.recaptcha_enforce_hostname]
+        ask.en = "Enforce recaptcha hostname"
+        ask.fr = "Forcer recaptcha hostname"
+        type = "boolean"
+        yes = "on"
+        no = "off"
+        default = "on"
+        bind = ":__INSTALL_DIR__/config.inc.php"

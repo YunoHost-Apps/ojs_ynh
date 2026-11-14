@@ -437,22 +437,22 @@ page_links = 10
 [captcha]
 
 ; Whether or not to enable ReCaptcha
-recaptcha = off
+recaptcha = __RECAPTCHA__
 
 ; Public key for reCaptcha (see http://www.google.com/recaptcha)
-recaptcha_public_key = your_public_key
+recaptcha_public_key = __RECAPTCHA_PUBLIC_KEY__
 
 ; Private key for reCaptcha (see http://www.google.com/recaptcha)
-recaptcha_private_key = your_private_key
+recaptcha_private_key = __RECAPTCHA_PRIVATE_KEY__
 
 ; Whether or not to use Captcha on user registration
-captcha_on_register = on
+captcha_on_register = __CAPTCHA_ON_REGISTER__
 
 ; Whether or not to use Captcha on user login
-captcha_on_login = on
+captcha_on_login = __CAPTCHA_ON_LOGIN__
 
 ; Validate the hostname in the ReCaptcha response
-recaptcha_enforce_hostname = Off
+recaptcha_enforce_hostname = __RECAPTCHA_ENFORCE_HOSTNAME__
 
 ;;;;;;;;;;;;;;;;;;;;;
 ; External Commands ;
